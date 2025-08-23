@@ -1,18 +1,24 @@
 // src/components/home/ProjectsHighlight.tsx
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "@/data/projects";
 
 export default function ProjectsHighlight() {
-  const reduce = useReducedMotion();
   const featured = PROJECTS.filter((p) => p.featured).slice(0, 3);
 
-  const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } } as const;
-  const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } } } as const;
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+  } as const;
+
+  const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } },
+  } as const;
 
   return (
     <section

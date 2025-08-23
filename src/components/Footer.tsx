@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Instagram, Twitter, Github, Linkedin, Facebook, ArrowUp } from "lucide-react";
+
+type CSSVars = CSSProperties & { ["--brand"]?: string };
 
 const socials = [
   { label: "Instagram", href: "https://www.instagram.com/piddddz/", Icon: Instagram, hex: "#E4405F" },
@@ -65,7 +68,7 @@ export default function Footer({ year }: { year: number }) {
           Footer
         </h2>
 
-        {/* brand + socials (2 kolom, konsisten) */}
+        {/* brand + socials */}
         <div className="grid gap-10 md:grid-cols-2 md:gap-12 items-start">
           <div>
             <p className="text-lg font-semibold tracking-tight bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent">Rofid Nasif Annafie</p>
@@ -82,7 +85,7 @@ export default function Footer({ year }: { year: number }) {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    style={{ ["--brand" as any]: hex }}
+                    style={{ ["--brand"]: hex } as CSSVars}
                     className={[
                       "group inline-grid place-items-center w-10 h-10 rounded-xl border",
                       "text-foreground/60 transition-all",
@@ -106,7 +109,7 @@ export default function Footer({ year }: { year: number }) {
           </p>
 
           <AnimatePresence>
-            {true && ( // tombol muncul kondisional via state; initial SSR = false -> sama dengan client
+            {showTop && (
               <motion.button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors"

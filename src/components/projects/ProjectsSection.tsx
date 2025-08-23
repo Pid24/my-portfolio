@@ -48,7 +48,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
     const res = initialProjects.filter((p) => {
       const passQuery = q.length === 0 || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q);
 
-      const passStacks = activeStacks.size === 0 || p.stack.some((s) => activeStacks.has(s)); // OR: selama salah satu cocok
+      const passStacks = activeStacks.size === 0 || p.stack.some((s) => activeStacks.has(s)); // OR
 
       return passQuery && passStacks;
     });
@@ -66,8 +66,15 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
   const shown = filtered.slice(0, visible);
 
   // animasi
-  const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } } as const;
-  const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } } } as const;
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: reduce ? 0 : 0.06 } },
+  } as const;
+
+  const item = {
+    hidden: { opacity: 0, y: reduce ? 0 : 10 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, duration: reduce ? 0 : undefined } },
+  } as const;
 
   // toggle chip stack
   function toggleStack(s: string) {
@@ -128,11 +135,17 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
           <div className="md:ml-auto flex items-center gap-2">
             <label className="group relative block">
               <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/50" />
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari proyek / stack…" className="pl-10 pr-3 h-10 w-full md:w-72 rounded-xl border bg-background placeholder:text-foreground/50" />
+              <input
+                value={query}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+                placeholder="Cari proyek / stack…"
+                className="pl-10 pr-3 h-10 w-full md:w-72 rounded-xl border bg-background placeholder:text-foreground/50"
+                aria-label="Search projects"
+              />
               <span className="sr-only">Search projects</span>
             </label>
 
-            <select value={sortMode} onChange={(e) => setSortMode(e.target.value as SortMode)} className="h-10 rounded-xl border bg-background px-3 text-sm" aria-label="Urutkan">
+            <select value={sortMode} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSortMode(e.target.value as SortMode)} className="h-10 rounded-xl border bg-background px-3 text-sm" aria-label="Urutkan">
               <option value="recent">Terbaru</option>
               <option value="az">A-Z</option>
             </select>
@@ -156,7 +169,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
                   <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                     {/* cover */}
                     <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                      <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={false} />
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
 

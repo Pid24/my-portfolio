@@ -9,9 +9,9 @@ import PageTransition from "@/components/splash/PageTransition";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
 
-// ====== CONFIG: ganti sesuai domain & og default ======
-const siteUrl = "https://rofid-dev.my.id"; // ← ganti ke domain kamu
-const ogImage = "/images/og-default.png"; // ← siapkan di /public/images
+// ====== CONFIG: domain & default OG ======
+const siteUrl = "https://rofid-dev.my.id";
+const ogImage = "/images/og-default.png";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -47,23 +47,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const year = new Date().getFullYear();
 
-  // JSON-LD (inline, server-rendered)
-  const personLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Rofid Nasif Annafie",
-    jobTitle: "Software Engineer",
-    url: siteUrl,
-    sameAs: ["https://github.com/Pid24", "https://www.linkedin.com/in/rofid/"],
-  };
-
-  const siteLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Rofid Nasif Annafie",
-    url: siteUrl,
-  };
-
   return (
     <html lang="id" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-clip`}>
@@ -76,18 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Transition setiap ganti route */}
           <PageTransition minDuration={700} />
-
-          {/* JSON-LD inline */}
-          <script
-            type="application/ld+json"
-            // @ts-expect-error: Next allows this for JSON-LD
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
-          />
-          <script
-            type="application/ld+json"
-            // @ts-expect-error: Next allows this for JSON-LD
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }}
-          />
 
           {/* Konten halaman */}
           {children}

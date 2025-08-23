@@ -14,10 +14,23 @@ import {
   siTailwindcss,
   siBootstrap,
   siTypescript,
-  siNodedotjs, // ⬅️ Node.js
+  siNodedotjs, // Node.js
 } from "simple-icons/icons";
 
-// ---- CONFIG ----
+/* ========= Types ========= */
+type SimpleIcon = {
+  title: string;
+  slug: string;
+  hex: string;
+  path: string;
+};
+
+type CSSVars = React.CSSProperties & {
+  ["--brand"]?: string;
+  ["--speed"]?: string;
+};
+
+/* ========= CONFIG ========= */
 const PROFILE = {
   name: "Rofid Nasif Annafie",
   role: "Software Engineer",
@@ -32,20 +45,20 @@ const PROFILE = {
   },
 } as const;
 
-const TECHS = [
-  { icon: siPhp, href: "https://www.php.net/" },
-  { icon: siJavascript, href: "https://developer.mozilla.org/docs/Web/JavaScript" },
-  { icon: siNodedotjs, href: "https://nodejs.org/" }, // ⬅️ Node.js ditambahkan
-  { icon: siTypescript, href: "https://www.typescriptlang.org/" },
-  { icon: siPython, href: "https://www.python.org/" },
-  { icon: siLaravel, href: "https://laravel.com/" },
-  { icon: siPostgresql, href: "https://www.postgresql.org/" },
-  { icon: siMysql, href: "https://www.mysql.com/" },
-  { icon: siTailwindcss, href: "https://tailwindcss.com/" },
-  { icon: siBootstrap, href: "https://getbootstrap.com/" },
-] as const;
+const TECHS: ReadonlyArray<{ icon: SimpleIcon; href: string }> = [
+  { icon: siPhp as unknown as SimpleIcon, href: "https://www.php.net/" },
+  { icon: siJavascript as unknown as SimpleIcon, href: "https://developer.mozilla.org/docs/Web/JavaScript" },
+  { icon: siNodedotjs as unknown as SimpleIcon, href: "https://nodejs.org/" },
+  { icon: siTypescript as unknown as SimpleIcon, href: "https://www.typescriptlang.org/" },
+  { icon: siPython as unknown as SimpleIcon, href: "https://www.python.org/" },
+  { icon: siLaravel as unknown as SimpleIcon, href: "https://laravel.com/" },
+  { icon: siPostgresql as unknown as SimpleIcon, href: "https://www.postgresql.org/" },
+  { icon: siMysql as unknown as SimpleIcon, href: "https://www.mysql.com/" },
+  { icon: siTailwindcss as unknown as SimpleIcon, href: "https://tailwindcss.com/" },
+  { icon: siBootstrap as unknown as SimpleIcon, href: "https://getbootstrap.com/" },
+];
 
-// ---- UTIL ----
+/* ========= Utils ========= */
 function hashString(s: string) {
   let h = 2166136261 >>> 0;
   for (let i = 0; i < s.length; i++) {
@@ -55,6 +68,7 @@ function hashString(s: string) {
   return h >>> 0;
 }
 
+/* ========= Component ========= */
 export function HeroSection() {
   const reduce = useReducedMotion();
 
@@ -189,52 +203,55 @@ export function HeroSection() {
   );
 }
 
-/* ================== Tech Marquee (fixed, auto jalan) ================== */
+/* ========= Tech Marquee ========= */
 function TechMarquee({
   items,
   speed = 22, // detik
 }: {
-  items: { icon: any; href: string }[];
+  items: ReadonlyArray<{ icon: SimpleIcon; href: string }>;
   speed?: number;
 }) {
   const reduce = useReducedMotion();
+
+  const trackStyle: CSSVars | undefined = reduce ? undefined : { ["--speed"]: `${speed}s` };
 
   return (
     <div className="relative overflow-hidden rounded-xl border bg-background/60">
       {/* track 2x supaya loop mulus */}
       <div
         className={`flex w-max gap-2 py-2 px-2 ${reduce ? "" : "marquee"}`}
-        // speed bisa diubah lewat CSS var
-        style={reduce ? undefined : ({ ["--speed" as any]: `${speed}s` } as React.CSSProperties)}
-        // pause saat hover
-        onMouseEnter={(e) => {
-          if (!reduce) (e.currentTarget as HTMLDivElement).style.animationPlayState = "paused";
+        style={trackStyle}
+        onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+          if (!reduce) e.currentTarget.style.animationPlayState = "paused";
         }}
-        onMouseLeave={(e) => {
-          if (!reduce) (e.currentTarget as HTMLDivElement).style.animationPlayState = "running";
+        onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+          if (!reduce) e.currentTarget.style.animationPlayState = "running";
         }}
       >
-        {[...items, ...items].map((t, i) => (
-          <a
-            key={`${t.icon.slug}-${i}`}
-            href={t.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={t.icon.title}
-            style={{ ["--brand" as any]: `#${t.icon.hex}` }}
-            className={[
-              "group inline-grid place-items-center w-10 h-10 rounded-lg border bg-background",
-              "text-foreground/60 transition-all",
-              "hover:text-[var(--brand)] hover:border-[var(--brand)] hover:bg-[var(--brand)]/10",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50",
-            ].join(" ")}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-hidden="true" className="transition-colors">
-              <path d={t.icon.path} fill="currentColor" />
-            </svg>
-            <span className="sr-only">{t.icon.title}</span>
-          </a>
-        ))}
+        {[...items, ...items].map((t, i) => {
+          const brandStyle: CSSVars = { ["--brand"]: `#${t.icon.hex}` };
+          return (
+            <a
+              key={`${t.icon.slug}-${i}`}
+              href={t.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={t.icon.title}
+              style={brandStyle}
+              className={[
+                "group inline-grid place-items-center w-10 h-10 rounded-lg border bg-background",
+                "text-foreground/60 transition-all",
+                "hover:text-[var(--brand)] hover:border-[var(--brand)] hover:bg-[var(--brand)]/10",
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50",
+              ].join(" ")}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-hidden="true" className="transition-colors">
+                <path d={t.icon.path} fill="currentColor" />
+              </svg>
+              <span className="sr-only">{t.icon.title}</span>
+            </a>
+          );
+        })}
       </div>
 
       {/* fade kiri/kanan */}

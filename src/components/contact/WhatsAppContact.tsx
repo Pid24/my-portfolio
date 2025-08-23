@@ -1,17 +1,25 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Smartphone, Clipboard, Check, QrCode, MessageSquare, ExternalLink } from "lucide-react";
 
-const PHONE = "6281234567890"; // ⬅️ GANTI: nomor WhatsApp kamu tanpa '+'
+const PHONE = "6281381629551"; // ⬅️ GANTI: nomor WhatsApp kamu tanpa '+'
 
 // Chips
 const PROJECT_TYPES = ["E-commerce", "Landing Page", "Company Profile", "Marketplace", "Lainnya"] as const;
 const BUDGETS = ["500rb–1jt", "1–3jt", "3–5jt", "5–10jt", "10jt++", "Diskusikan dulu"] as const;
 const TIMELINES = ["Secepatnya", "1–2 minggu", "1 bulan", "Diskusikan dulu"] as const;
 
-// Helpers
+// ===== Helpers & Types =====
+type ProjectType = (typeof PROJECT_TYPES)[number];
+type BudgetType = (typeof BUDGETS)[number];
+type TimelineType = (typeof TIMELINES)[number];
+
+function typedIncludes<T extends readonly string[]>(arr: T, v: string | null): v is T[number] {
+  return typeof v === "string" && (arr as readonly string[]).includes(v);
+}
+
 function buildMessage(opts: { name?: string; projectType?: string; budget?: string; timeline?: string; note?: string; includeRef?: boolean; refUrl?: string }) {
   const { name, projectType, budget, timeline, note, includeRef, refUrl } = opts;
   const line1 = `Halo Rofid${name ? `, saya ${name}` : ""}.`;
@@ -34,6 +42,7 @@ function buildWhatsAppUrl(text: string) {
   }
   return `https://web.whatsapp.com/send?phone=${PHONE}&text=${encoded}`;
 }
+
 function buildWhatsAppWebUrl(text: string) {
   return `https://web.whatsapp.com/send?phone=${PHONE}&text=${encodeURIComponent(text.trim())}`;
 }
@@ -43,24 +52,27 @@ export default function WhatsAppContact() {
 
   // Prefill dari query + ref URL
   const [refUrl, setRefUrl] = useState<string | undefined>(undefined);
+  const [projectType, setProjectType] = useState<ProjectType | undefined>();
+  const [budget, setBudget] = useState<BudgetType | undefined>();
+  const [timeline, setTimeline] = useState<TimelineType | undefined>();
+
   useEffect(() => {
     try {
       const sp = new URLSearchParams(window.location.search);
       const type = sp.get("type");
-      const budget = sp.get("budget");
-      const timeline = sp.get("timeline");
-      if (type && PROJECT_TYPES.includes(type as any)) setProjectType(type as any);
-      if (budget && BUDGETS.includes(budget as any)) setBudget(budget as any);
-      if (timeline && TIMELINES.includes(timeline as any)) setTimeline(timeline as any);
+      const b = sp.get("budget");
+      const t = sp.get("timeline");
+      if (typedIncludes(PROJECT_TYPES, type)) setProjectType(type);
+      if (typedIncludes(BUDGETS, b)) setBudget(b);
+      if (typedIncludes(TIMELINES, t)) setTimeline(t);
       setRefUrl(window.location.href);
-    } catch {}
+    } catch {
+      // no-op
+    }
   }, []);
 
   // Form state
   const [name, setName] = useState("");
-  const [projectType, setProjectType] = useState<(typeof PROJECT_TYPES)[number] | undefined>();
-  const [budget, setBudget] = useState<(typeof BUDGETS)[number] | undefined>();
-  const [timeline, setTimeline] = useState<(typeof TIMELINES)[number] | undefined>();
   const [note, setNote] = useState("");
   const [includeRef, setIncludeRef] = useState(false);
 
@@ -79,7 +91,9 @@ export default function WhatsAppContact() {
       await navigator.clipboard.writeText("+" + PHONE);
       setCopyOk(true);
       setTimeout(() => setCopyOk(false), 1400);
-    } catch {}
+    } catch {
+      // no-op
+    }
   }
 
   function handleOpen() {
@@ -187,7 +201,7 @@ export default function WhatsAppContact() {
                   autoComplete="name"
                   placeholder="Nama lengkap"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                   className="mt-2 w-full rounded-xl border bg-transparent px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                 />
               </div>
@@ -211,7 +225,7 @@ export default function WhatsAppContact() {
                 </div>
               </div>
 
-              {/* Budget (revisi) */}
+              {/* Budget */}
               <div>
                 <p className="text-sm font-medium">Estimasi budget</p>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -259,7 +273,7 @@ export default function WhatsAppContact() {
                   rows={6}
                   placeholder="Ceritakan kebutuhanmu singkat: scope, referensi, deadline, dll."
                   value={note}
-                  onChange={(e) => setNote(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
                   className="mt-2 w-full rounded-xl border bg-transparent px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
                 />
               </div>
@@ -267,7 +281,7 @@ export default function WhatsAppContact() {
               {/* Opsi tambahan */}
               <div className="flex flex-wrap items-center gap-4">
                 <label className="inline-flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="h-4 w-4 rounded border" checked={includeRef} onChange={(e) => setIncludeRef(e.target.checked)} />
+                  <input type="checkbox" className="h-4 w-4 rounded border" checked={includeRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIncludeRef(e.target.checked)} />
                   Sertakan link halaman ini
                 </label>
               </div>
@@ -315,6 +329,7 @@ export default function WhatsAppContact() {
               <h3 className="text-base font-semibold mb-2">Scan untuk chat</h3>
               <p className="text-sm text-foreground/70 mb-4">Pindai QR di bawah untuk membuka WhatsApp.</p>
               <div className="grid place-items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(urlWaMe)}`} alt="QR WhatsApp" className="rounded-xl border" width={220} height={220} />
               </div>
               <div className="mt-5 flex justify-end">
