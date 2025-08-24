@@ -4,51 +4,24 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import {
-  siPhp,
-  siJavascript,
-  siPython,
-  siLaravel,
-  siPostgresql,
-  siMysql,
-  siTailwindcss,
-  siBootstrap,
-  siTypescript,
-  siNodedotjs, // Node.js
-} from "simple-icons/icons";
+import { siPhp, siJavascript, siPython, siLaravel, siPostgresql, siMysql, siTailwindcss, siBootstrap, siTypescript, siNodedotjs } from "simple-icons/icons";
 
-/* ========= Types ========= */
-type SimpleIcon = {
-  title: string;
-  slug: string;
-  hex: string;
-  path: string;
-};
+type SimpleIcon = { title: string; slug: string; hex: string; path: string };
+type CSSVars = React.CSSProperties & { ["--brand"]?: string; ["--speed"]?: string };
 
-type CSSVars = React.CSSProperties & {
-  ["--brand"]?: string;
-  ["--speed"]?: string;
-};
-
-/* ========= CONFIG ========= */
 const PROFILE = {
   name: "Rofid Nasif Annafie",
   role: "Software Engineer",
   phrases: ["Building modern & responsive websites", "Clean code, blazing-fast performance", "UI/UX that's a joy to use"],
   photoUrl: "/images/pid.jpg",
   photos: ["/images/pid.jpg"],
-  links: {
-    github: "https://github.com/Pid24",
-    linkedin: "https://www.linkedin.com/in/rofid/",
-    cv: "/docs/pid-cv.pdf",
-    contact: "#contact",
-  },
+  links: { github: "https://github.com/Pid24", linkedin: "https://www.linkedin.com/in/rofid/", cv: "/docs/pid-cv.pdf", contact: "#contact" },
 } as const;
 
 const TECHS: ReadonlyArray<{ icon: SimpleIcon; href: string }> = [
   { icon: siPhp as unknown as SimpleIcon, href: "https://www.php.net/" },
-  { icon: siJavascript as unknown as SimpleIcon, href: "https://developer.mozilla.org/docs/Web/JavaScript" },
   { icon: siNodedotjs as unknown as SimpleIcon, href: "https://nodejs.org/" },
+  { icon: siJavascript as unknown as SimpleIcon, href: "https://developer.mozilla.org/docs/Web/JavaScript" },
   { icon: siTypescript as unknown as SimpleIcon, href: "https://www.typescriptlang.org/" },
   { icon: siPython as unknown as SimpleIcon, href: "https://www.python.org/" },
   { icon: siLaravel as unknown as SimpleIcon, href: "https://laravel.com/" },
@@ -58,7 +31,6 @@ const TECHS: ReadonlyArray<{ icon: SimpleIcon; href: string }> = [
   { icon: siBootstrap as unknown as SimpleIcon, href: "https://getbootstrap.com/" },
 ];
 
-/* ========= Utils ========= */
 function hashString(s: string) {
   let h = 2166136261 >>> 0;
   for (let i = 0; i < s.length; i++) {
@@ -68,11 +40,10 @@ function hashString(s: string) {
   return h >>> 0;
 }
 
-/* ========= Component ========= */
 export function HeroSection() {
   const reduce = useReducedMotion();
 
-  const phrases = useMemo(() => (PROFILE.phrases?.length ? PROFILE.phrases : ["Membangun web modern & responsif"]), []);
+  const phrases = useMemo(() => (PROFILE.phrases?.length ? PROFILE.phrases : ["Build modern & responsive web"]), []);
   const [index, setIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setIndex((i) => (i + 1) % phrases.length), 2400);
@@ -93,107 +64,107 @@ export function HeroSection() {
   const stableSeed = useMemo(() => hashString(`${PROFILE.name}|${PROFILE.photoUrl}`), []);
   const flip = (stableSeed & 1) === 0;
   const glowBg = flip
-    ? "radial-gradient(60% 60% at 50% 40%, rgba(56,189,248,0.4), transparent), radial-gradient(40% 40% at 30% 80%, rgba(168,85,247,0.35), transparent)"
-    : "radial-gradient(60% 60% at 50% 40%, rgba(129,140,248,0.45), transparent), radial-gradient(40% 40% at 30% 80%, rgba(34,211,238,0.35), transparent)";
+    ? "radial-gradient(60% 60% at 50% 40%, rgba(56,189,248,0.35), transparent), radial-gradient(40% 40% at 30% 80%, rgba(168,85,247,0.30), transparent)"
+    : "radial-gradient(60% 60% at 50% 40%, rgba(129,140,248,0.40), transparent), radial-gradient(40% 40% at 30% 80%, rgba(34,211,238,0.30), transparent)";
 
   return (
     <main
-      className="
-        relative min-h-screen w-screen overflow-hidden
-        bg-gradient-to-b from-background to-background/60
-        mx-[calc(50%-50vw)]
-      "
+      className="relative w-full overflow-hidden bg-gradient-to-b from-background to-background/60"
       style={{
         backgroundImage: "radial-gradient(circle at 1px 1px, hsl(var(--foreground)/0.06) 1px, transparent 0)",
         backgroundSize: "24px 24px",
       }}
     >
-      {/* Decorative blobs */}
+      {/* blobs */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-30"
         style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
-        animate={reduce ? {} : { y: [0, -18, 0] }}
+        animate={reduce ? {} : { y: [0, -16, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-20"
-        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.55), transparent)" }}
-        animate={reduce ? {} : { y: [0, 16, 0] }}
+        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.5), transparent)" }}
+        animate={reduce ? {} : { y: [0, 14, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
 
-      {/* Content wrapper */}
-      <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center pt-24 md:pt-36 pb-16">
-        {/* Left: Text */}
-        <motion.section variants={container} initial="hidden" animate="show" className="order-2 md:order-1">
+      {/* wrapper */}
+      <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center place-items-center md:place-items-start pt-24 md:pt-32 pb-14">
+        {/* text */}
+        <motion.section variants={container} initial="hidden" animate="show" className="order-1 w-full">
           <div className="max-w-xl">
-            <motion.h1 variants={itemUp} className="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
+            <motion.h1 variants={itemUp} className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight tracking-tight">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">{PROFILE.name}</span>
             </motion.h1>
 
-            <motion.p variants={itemUp} className="mt-3 text-lg md:text-xl text-muted-foreground">
+            <motion.p variants={itemUp} className="mt-2 text-base sm:text-lg text-muted-foreground">
               {PROFILE.role}
             </motion.p>
 
-            {/* Dynamic phrases */}
-            <div className="mt-6 h-8 md:h-10 relative" aria-live="polite">
+            <div className="mt-4 h-7 sm:h-8 relative" aria-live="polite">
               <AnimatePresence mode="wait">
-                <motion.p key={index} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4 }} className="text-base md:text-lg text-foreground/80">
+                <motion.p key={index} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.35 }} className="text-sm sm:text-base text-foreground/80">
                   {phrases[index]}
                 </motion.p>
               </AnimatePresence>
             </div>
 
-            {/* CTA */}
-            <motion.div variants={itemUp} className="mt-8 flex flex-wrap items-center gap-3">
+            <motion.div variants={itemUp} className="mt-6 flex flex-wrap items-center gap-3">
               <a
                 href={PROFILE.links.contact}
-                className="group inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm md:text-base font-medium shadow-sm border bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
+                className="group inline-flex items-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-medium shadow-sm border bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
                 aria-label="Hubungi saya"
               >
                 Hubungi Saya
-                <ArrowRight className="size-4 md:size-5 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </motion.div>
 
-            {/* Tech stack (marquee kanan → kiri) */}
-            <motion.div variants={itemUp} className="mt-8">
-              <p className="text-xs font-medium text-foreground/70 mb-3">Tech stack</p>
+            <motion.div variants={itemUp} className="mt-7 w-full">
+              <p className="text-xs font-medium text-foreground/70 mb-2">Tech stack</p>
               <TechMarquee items={TECHS} />
             </motion.div>
           </div>
         </motion.section>
 
-        {/* Right: Photo */}
-        <section className="order-1 md:order-2 relative flex items-center justify-center">
-          <motion.div initial={{ opacity: 0, scale: 0.95, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: "spring", damping: 20 }} whileHover={{ y: -4 }} className="relative">
-            <div className="relative rounded-3xl p-1 bg-gradient-to-tr from-indigo-500/70 via-cyan-400/70 to-violet-500/70 shadow-xl">
+        {/* photo — guaranteed center on mobile */}
+        <section className="order-2 w-full flex items-center justify-center md:justify-end">
+          <motion.div initial={{ opacity: 0, scale: 0.98, rotate: -1 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: "spring", damping: 20 }} whileHover={{ y: -3 }} className="relative mx-auto md:mx-0">
+            <div className="relative rounded-3xl p-[6px] bg-gradient-to-tr from-indigo-500/60 via-cyan-400/60 to-violet-500/60 shadow-xl mx-auto">
               <div className="rounded-2xl overflow-hidden bg-background">
-                <div className="relative h-[360px] w-[280px] md:h-[480px] md:w-[360px]">
+                <div className="relative aspect-[3/4] w-[82vw] max-w-[360px] sm:w-[56vw] md:w-[360px] mx-auto">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={photos[photoIndex]}
                       className="absolute inset-0"
-                      initial={{ opacity: 0, scale: 0.98 }}
+                      initial={{ opacity: 0, scale: 0.985 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 1.02 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      exit={{ opacity: 0, scale: 1.015 }}
+                      transition={{ duration: 0.45, ease: "easeOut" }}
                     >
-                      <Image src={photos[photoIndex]} alt={`Foto ${PROFILE.name}`} fill priority={photoIndex === 0} sizes="(min-width: 768px) 360px, 280px" className="object-cover" style={{ objectPosition: "center 20%" }} />
+                      <Image
+                        src={photos[photoIndex]}
+                        alt={`Foto ${PROFILE.name}`}
+                        fill
+                        priority={photoIndex === 0}
+                        sizes="(min-width:1024px) 360px, (min-width:640px) 56vw, 82vw"
+                        className="object-cover"
+                        style={{ objectPosition: "center 20%" }}
+                      />
                     </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
             </div>
 
-            {/* Glow belakang frame */}
             <motion.div
               aria-hidden
-              className="absolute inset-0 -z-10 blur-2xl opacity-40"
+              className="absolute inset-0 -z-10 blur-2xl opacity-35"
               style={{ backgroundImage: glowBg }}
-              animate={reduce ? {} : { opacity: [0.35, 0.55, 0.35] }}
+              animate={reduce ? {} : { opacity: [0.3, 0.55, 0.3] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
             />
           </motion.div>
@@ -204,28 +175,26 @@ export function HeroSection() {
 }
 
 /* ========= Tech Marquee ========= */
-function TechMarquee({
-  items,
-  speed = 22, // detik
-}: {
-  items: ReadonlyArray<{ icon: SimpleIcon; href: string }>;
-  speed?: number;
-}) {
+function TechMarquee({ items, speed = 22 }: { items: ReadonlyArray<{ icon: SimpleIcon; href: string }>; speed?: number }) {
   const reduce = useReducedMotion();
-
   const trackStyle: CSSVars | undefined = reduce ? undefined : { ["--speed"]: `${speed}s` };
 
   return (
-    <div className="relative overflow-hidden rounded-xl border bg-background/60">
-      {/* track 2x supaya loop mulus */}
+    <div
+      className="relative overflow-hidden rounded-xl border bg-background/60"
+      style={{
+        WebkitMaskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
+        maskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
+      }}
+    >
       <div
         className={`flex w-max gap-2 py-2 px-2 ${reduce ? "" : "marquee"}`}
         style={trackStyle}
         onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
           if (!reduce) e.currentTarget.style.animationPlayState = "paused";
         }}
-        onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-          if (!reduce) e.currentTarget.style.animationPlayState = "running";
+        onMouseLeave={(e) => {
+          if (!reduce) (e.currentTarget as HTMLDivElement).style.animationPlayState = "running";
         }}
       >
         {[...items, ...items].map((t, i) => {
@@ -238,12 +207,7 @@ function TechMarquee({
               rel="noreferrer"
               aria-label={t.icon.title}
               style={brandStyle}
-              className={[
-                "group inline-grid place-items-center w-10 h-10 rounded-lg border bg-background",
-                "text-foreground/60 transition-all",
-                "hover:text-[var(--brand)] hover:border-[var(--brand)] hover:bg-[var(--brand)]/10",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50",
-              ].join(" ")}
+              className="group inline-grid place-items-center w-10 h-10 rounded-lg border bg-background text-foreground/60 transition-all hover:text-[var(--brand)] hover:border-[var(--brand)] hover:bg-[var(--brand)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-hidden="true" className="transition-colors">
                 <path d={t.icon.path} fill="currentColor" />
@@ -254,11 +218,6 @@ function TechMarquee({
         })}
       </div>
 
-      {/* fade kiri/kanan */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-background to-transparent" />
-
-      {/* keyframes global */}
       <style jsx global>{`
         @keyframes _marquee {
           from {
