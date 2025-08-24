@@ -1,38 +1,45 @@
 Rofid Nasif Annafie — Portfolio
 
-Personal website & portfolio built with Next.js (App Router), TypeScript, Tailwind CSS, dan Framer Motion. Fokus pada performa, animasi halus, dan kemudahan deploy ke shared hosting (static export).
+Personal website & portfolio dibangun dengan Next.js (App Router), TypeScript, Tailwind CSS, dan Framer Motion. Fokus pada performa, animasi halus, serta kemudahan deploy ke shared hosting melalui static export.
 
-🌐 Live: https://rofid-dev.my.id
+🌐 Live Demo: rofid-dev.my.id
 
 ✨ Fitur Utama
 
-Hero modern dengan marquee tech stack (ikon berubah warna saat hover)
+Hero Section
+Modern dengan marquee tech stack (ikon berubah warna saat hover).
 
-Navbar animasi (underline & pill) + Theme Toggle (light/dark)
+Navigasi
+Navbar animasi (underline & pill) + theme toggle (light/dark).
 
-Projects:
+Projects
 
 Featured Projects di beranda
 
 Halaman /projects dengan search, filter by stack, sort, dan load more
 
-About dengan slideshow foto & copy yang profesional
+About
+Slideshow foto & copy profesional.
 
-Contact via WhatsApp (otomatis isi pesan)
+Contact
+WhatsApp integration (otomatis isi pesan).
 
-Splash screens:
+Splash Screens
 
 BootSplash (overlay saat refresh)
 
-PageTransition (transisi tiap pindah route)
+PageTransition (transisi antar halaman)
 
-SEO dasar via Next Metadata (OpenGraph, Twitter card)
+SEO Dasar
+Next Metadata (OpenGraph & Twitter card).
 
-Static export siap upload ke hPanel/CPANEL
+Static Export
+Siap upload ke hPanel/cPanel tanpa Node server.
 
 🛠️ Tech Stack
 
-Next.js 15 (App Router, output: "export")
+Next.js 15
+ (App Router, output: "export")
 
 TypeScript
 
@@ -68,40 +75,38 @@ src/
     contact/
       WhatsAppContact.tsx
   data/
-    projects.ts     -> sumber data proyek (judul, slug, cover, stack, dll)
+    projects.ts     -> sumber data proyek
 public/
-  images/           -> semua gambar (cover project, og image, foto, favicon)
+  images/           -> cover project, og image, foto, favicon
 
 🚀 Jalankan Lokal
-# 1) Install deps
+# 1) Install dependencies
 npm install
 
-# 2) Development
+# 2) Development mode
 npm run dev
 
 # 3) Production build (static export otomatis ke folder `out/`)
 npm run build
 
 
-Catatan: Project sudah dikonfigurasi static export via next.config.ts (output: "export"). Hasil build siap upload ke hosting tanpa Node server.
+⚡ Catatan: sudah dikonfigurasi output: "export" via next.config.ts. Hasil build siap upload ke shared hosting.
 
 📦 Deploy ke Shared Hosting (hPanel / cPanel)
 
-npm run build → output ada di folder out/
+Jalankan npm run build → output ada di folder out/
 
-Zip folder out/ (klik kanan → 7-Zip → Add to archive… → format zip)
+Zip folder out/ → upload ke public_html (atau sub-folder domain)
 
-Upload ZIP ke File Manager → public_html (atau sub-folder domain)
-
-Extract ZIP di server → pastikan file index.html, _next/*, images/*, docs/* ada di root domain/subdomain
+Extract di server → pastikan file index.html, _next/*, images/* tersedia
 
 Selesai ✅
 
-Update situs = build ulang → upload ulang isi out/ (overwrite).
+Update situs = build ulang → upload ulang isi folder out/ (overwrite).
 
-✍️ Cara Menambah / Mengubah Project
+✍️ Tambah / Ubah Project
 
-Simpan cover gambar di public/images/ (PNG/JPG bebas)
+Simpan cover di public/images/ (PNG/JPG).
 
 Tambah/ubah item di src/data/projects.ts:
 
@@ -120,9 +125,9 @@ export const PROJECTS = [
 ];
 
 
-Jalankan npm run dev untuk cek tampilan, lalu npm run build + upload out/.
+Jalankan npm run dev untuk cek → npm run build → upload out/.
 
-🔄 Git Workflow (aman dari “Source Control 10K”)
+🔄 Git Workflow
 
 .gitignore sudah mengecualikan:
 
@@ -134,7 +139,7 @@ out/
 
 .env*
 
-Perintah standar:
+Workflow standar:
 
 git add -A
 git commit -m "update: UI/UX & content"
@@ -146,9 +151,9 @@ Di app/layout.tsx:
 
 metadataBase, openGraph, twitter
 
-Gambar OG default: public/images/og-default.png
+Gambar default OG: public/images/og-default.png
 
-Opsional: robots.txt & sitemap tidak disertakan untuk memudahkan static export. Jika butuh SEO lanjut, bisa ditambah belakangan dengan konfigurasi yang kompatibel static export.
+👉 robots.txt & sitemap belum disertakan agar static export lebih mudah. Bisa ditambahkan kemudian bila perlu.
 
 🧩 Scripts
 {
@@ -159,13 +164,13 @@ Opsional: robots.txt & sitemap tidak disertakan untuk memudahkan static export. 
 
 ✅ Roadmap Singkat
 
- Project detail page per slug (opsional)
+ Project detail page per slug
 
  Animasi tambahan di Projects (hover 3D / parallax)
 
- Analytics (Plausible/GA4)
+ Analytics (Plausible / GA4)
 
- Better a11y & Lighthouse tuning
+ Peningkatan aksesibilitas (a11y) & Lighthouse score
 
 📄 Lisensi
 
