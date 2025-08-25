@@ -5,7 +5,7 @@ export type Project = {
   excerpt: string;
   cover: string; // contoh: "/projects/toko-x.webp"
   stack: string[]; // ["Laravel","Tailwind","MySQL"]
-  category: "E-commerce" | "Landing Page" | "Payment Gateway" | "Laravel";
+  category: "E-commerce" | "Landing Page" | "Payment Gateway" | "Laravel" | "Booking" | "Streaming";
   period?: string;
   links?: { live?: string; github?: string };
   featured?: boolean; // dipakai untuk highlight di Home
@@ -30,7 +30,7 @@ export const PROJECTS: Project[] = [
     excerpt: "Apotek online mobile—pencarian instan, kategori obat, dan order tracking.",
     cover: "/images/atraindes-apotek.png",
     stack: ["Laravel", "Tailwind", "MySQL"],
-    category: "Landing Page",
+    category: "E-commerce",
     period: "2024",
     links: { live: "#", github: "#" },
     featured: true,
@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     excerpt: "Aplikasi tiket wisata—discover, kategori, bookings, rewards, dan gateway pembayaran reusable untuk Laravel.",
     cover: "/images/atraindes-tiket.png",
     stack: ["Laravel", "Tailwind", "MySQL"],
-    category: "Payment Gateway",
+    category: "E-commerce",
     period: "2024",
     links: { github: "#" },
     featured: true,
@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
     excerpt: "Website studio musik dengan pemesanan jadwal, manajemen ruangan & CMS promosi.",
     cover: "/images/md-music-studio.png",
     stack: ["Laravel", "Tailwind", "MySQL"],
-    category: "Laravel",
+    category: "Landing Page",
     period: "2025",
     links: { live: "#" },
     featured: false,
@@ -63,9 +63,20 @@ export const PROJECTS: Project[] = [
     excerpt: "Aplikasi booking lapangan olahraga, bookings, jadwal, dan payment gateway.",
     cover: "/images/lap-on.png",
     stack: ["Laravel", "Flutter", "MySQL"],
-    category: "Laravel",
+    category: "Booking",
     period: "2025",
     links: { live: "#" },
+    featured: false,
+  },
+  {
+    slug: "anime-hub",
+    title: "AnimeHub",
+    excerpt: "Web streaming anime, baris konten ala netflix, navbar modern, dan performa ux",
+    cover: "/images/anime-hub.png",
+    stack: ["Nextjs", "Tailwind"],
+    category: "Streaming",
+    period: "2025",
+    links: { live: "https://anime-hubs.vercel.app/" },
     featured: false,
   },
 ];

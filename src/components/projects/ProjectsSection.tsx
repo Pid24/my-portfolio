@@ -21,6 +21,18 @@ function yearOf(p?: string) {
   return m ? parseInt(m[0], 10) : 0;
 }
 
+// ambil href live yang aman (fallback ke /projects)
+function liveHrefFor(p: Project): string {
+  const raw = p.links?.live?.trim();
+  if (!raw || raw === "#") return "/projects";
+  return raw;
+}
+
+// cek apakah external (biar bisa open in new tab + rel proper)
+function isExternalUrl(href: string) {
+  return /^https?:\/\//i.test(href) || href.startsWith("//");
+}
+
 export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle = "Projects", pageSubtitle = "Filter berdasarkan Tech Stack. Cari proyek atau stack favoritmu." }: Props) {
   const reduce = useReducedMotion();
 
@@ -164,35 +176,53 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
         ) : (
           <>
             <motion.ul variants={container} initial="hidden" animate="show" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {shown.map((p) => (
-                <motion.li key={p.slug} variants={item}>
-                  <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
-                    {/* cover */}
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={false} />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
+              {shown.map((p) => {
+                const liveHref = liveHrefFor(p);
+                const external = isExternalUrl(liveHref);
 
-                    {/* body */}
-                    <div className="p-4 md:p-5">
-                      <h3 className="text-base md:text-lg font-semibold tracking-tight">{p.title}</h3>
-                      <p className="mt-1 text-sm text-foreground/70 line-clamp-2">{p.excerpt}</p>
-
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {p.stack.slice(0, 5).map((s) => (
-                          <span key={s} className="rounded-lg border px-2 py-0.5 text-[11px] text-foreground/70">
-                            {s}
-                          </span>
-                        ))}
-                        {p.stack.length > 5 && <span className="text-[11px] text-foreground/50">+{p.stack.length - 5}</span>}
+                return (
+                  <motion.li key={p.slug} variants={item}>
+                    <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
+                      {/* cover */}
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={false} />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                    </div>
 
-                    {/* hover ring */}
-                    <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-indigo-400/0 group-hover:ring-2 group-hover:ring-indigo-400/30 transition-all" />
-                  </article>
-                </motion.li>
-              ))}
+                      {/* body */}
+                      <div className="p-4 md:p-5">
+                        <h3 className="text-base md:text-lg font-semibold tracking-tight">{p.title}</h3>
+                        <p className="mt-1 text-sm text-foreground/70 line-clamp-2">{p.excerpt}</p>
+
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {p.stack.slice(0, 5).map((s) => (
+                            <span key={s} className="rounded-lg border px-2 py-0.5 text-[11px] text-foreground/70">
+                              {s}
+                            </span>
+                          ))}
+                          {p.stack.length > 5 && <span className="text-[11px] text-foreground/50">+{p.stack.length - 5}</span>}
+                        </div>
+
+                        {/* CTA Live */}
+                        <div className="mt-4">
+                          <a
+                            href={liveHref}
+                            target={external ? "_blank" : undefined}
+                            rel={external ? "noopener noreferrer" : undefined}
+                            className="inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-medium hover:bg-foreground/5 transition"
+                            aria-label={`Open live preview for ${p.title}`}
+                          >
+                            Live
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* hover ring */}
+                      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-indigo-400/0 group-hover:ring-2 group-hover:ring-indigo-400/30 transition-all" />
+                    </article>
+                  </motion.li>
+                );
+              })}
             </motion.ul>
 
             {/* Load more */}
