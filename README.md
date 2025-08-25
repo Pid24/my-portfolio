@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Rofid Nasif Annafie — Portfolio
 
-## Getting Started
+Personal website & portfolio dibangun dengan Next.js (App Router), TypeScript, Tailwind CSS, dan Framer Motion. Fokus pada performa, animasi halus, serta kemudahan deploy ke shared hosting melalui static export.
 
-First, run the development server:
+🌐 Live Demo: rofid-dev.my.id
 
-```bash
+✨ Fitur Utama
+
+Hero Section
+Modern dengan marquee tech stack (ikon berubah warna saat hover).
+
+Navigasi
+Navbar animasi (underline & pill) + theme toggle (light/dark).
+
+Projects
+
+Featured Projects di beranda
+
+Halaman /projects dengan search, filter by stack, sort, dan load more
+
+About
+Slideshow foto & copy profesional.
+
+Contact
+WhatsApp integration (otomatis isi pesan).
+
+Splash Screens
+
+BootSplash (overlay saat refresh)
+
+PageTransition (transisi antar halaman)
+
+SEO Dasar
+Next Metadata (OpenGraph & Twitter card).
+
+Static Export
+Siap upload ke hPanel/cPanel tanpa Node server.
+
+🛠️ Tech Stack
+
+Next.js 15
+ (App Router, output: "export")
+
+TypeScript
+
+Tailwind CSS
+
+Framer Motion
+
+next-themes (theme toggle)
+
+lucide-react (ikon)
+
+simple-icons (ikon tech stack)
+
+📁 Struktur Direktori (ringkas)
+src/
+  app/
+    (routes)        -> page.tsx per halaman (/, /about, /projects, /contact)
+    layout.tsx      -> Navbar, BootSplash, PageTransition, Footer, ThemeProvider
+    globals.css
+  components/
+    Navbar.tsx
+    Footer.tsx
+    ThemeProvider.tsx
+    ThemeToggle.tsx
+    HeroSection.tsx
+    splash/
+      BootSplash.tsx
+      PageTransition.tsx
+    home/
+      ProjectsHighlight.tsx
+    projects/
+      ProjectsSection.tsx
+    contact/
+      WhatsAppContact.tsx
+  data/
+    projects.ts     -> sumber data proyek
+public/
+  images/           -> cover project, og image, foto, favicon
+
+🚀 Jalankan Lokal
+# 1) Install dependencies
+npm install
+
+# 2) Development mode
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 3) Production build (static export otomatis ke folder `out/`)
+npm run build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+⚡ Catatan: sudah dikonfigurasi output: "export" via next.config.ts. Hasil build siap upload ke shared hosting.
 
-## Learn More
+📦 Deploy ke Shared Hosting (hPanel / cPanel)
 
-To learn more about Next.js, take a look at the following resources:
+Jalankan npm run build → output ada di folder out/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Zip folder out/ → upload ke public_html (atau sub-folder domain)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Extract di server → pastikan file index.html, _next/*, images/* tersedia
 
-## Deploy on Vercel
+Selesai ✅
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Update situs = build ulang → upload ulang isi folder out/ (overwrite).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✍️ Tambah / Ubah Project
+
+Simpan cover di public/images/ (PNG/JPG).
+
+Tambah/ubah item di src/data/projects.ts:
+
+export const PROJECTS = [
+  {
+    slug: "setu-umkm",
+    title: "Setu UMKM",
+    excerpt: "Custom e-commerce Laravel dengan Midtrans, voucher & ongkir.",
+    cover: "/images/setu-umkm.png",
+    stack: ["Laravel", "PHP", "Tailwind", "MySQL"],
+    category: "E-commerce",
+    period: "2023",
+    featured: true,
+  },
+  // ...
+];
+
+
+Jalankan npm run dev untuk cek → npm run build → upload out/.
+
+🔄 Git Workflow
+
+.gitignore sudah mengecualikan:
+
+node_modules/
+
+.next/
+
+out/
+
+.env*
+
+Workflow standar:
+
+git add -A
+git commit -m "update: UI/UX & content"
+git push
+
+⚙️ Konfigurasi SEO
+
+Di app/layout.tsx:
+
+metadataBase, openGraph, twitter
+
+Gambar default OG: public/images/og-default.png
+
+👉 robots.txt & sitemap belum disertakan agar static export lebih mudah. Bisa ditambahkan kemudian bila perlu.
+
+🧩 Scripts
+{
+  "dev": "next dev",
+  "build": "next build --turbopack",
+  "start": "next start"
+}
+
+✅ Roadmap Singkat
+
+ Project detail page per slug
+
+ Animasi tambahan di Projects (hover 3D / parallax)
+
+ Analytics (Plausible / GA4)
+
+ Peningkatan aksesibilitas (a11y) & Lighthouse score
+
+📄 Lisensi
+
+MIT © 2025 Rofid Nasif Annafie
