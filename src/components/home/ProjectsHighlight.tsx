@@ -1,4 +1,3 @@
-// src/components/home/ProjectsHighlight.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,18 +6,26 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "@/data/projects";
 
+// Ambil angka tahun pertama dari string period, mis. "2024", "2023–2024", "2025/ongoing"
+function yearOf(p?: string) {
+  if (!p) return 0;
+  const m = p.match(/\d{4}/);
+  return m ? parseInt(m[0], 10) : 0;
+}
+
 export default function ProjectsHighlight() {
-  const featured = PROJECTS.filter((p) => p.featured).slice(0, 3);
+  // Sorting helper: terbaru dulu; tie-breaker judul biar stabil
+  const sortByRecent = (a: (typeof PROJECTS)[number], b: (typeof PROJECTS)[number]) => yearOf(b.period) - yearOf(a.period) || a.title.localeCompare(b.title);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-  } as const;
+  // Jika semua period gagal diparse (semua 0), fallback ke urutan dibalik
+  const hasValidYear = PROJECTS.some((p) => yearOf(p.period) > 0);
+  const latest = hasValidYear ? [...PROJECTS].sort(sortByRecent) : [...PROJECTS].reverse();
 
-  const item = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } },
-  } as const;
+  // Ambil 3 terbaru
+  const cards = latest.slice(0, 3);
+
+  const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } } as const;
+  const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } } } as const;
 
   return (
     <section
@@ -30,15 +37,15 @@ export default function ProjectsHighlight() {
         backgroundImage: "radial-gradient(circle at 1px 1px, hsl(var(--foreground)/0.06) 1px, transparent 0)",
         backgroundSize: "24px 24px",
       }}
-      aria-labelledby="featured-projects"
+      aria-labelledby="latest-projects"
     >
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16">
         <div className="mb-6 md:mb-8 flex items-end justify-between gap-4">
           <div>
-            <h2 id="featured-projects" className="text-2xl md:text-3xl font-bold tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Featured Projects</span>
+            <h2 id="latest-projects" className="text-2xl md:text-3xl font-bold tracking-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Latest Projects</span>
             </h2>
-            <p className="mt-2 text-sm text-foreground/70">Beberapa proyek pilihan</p>
+            <p className="mt-2 text-sm text-foreground/70">Tiga proyek paling baru.</p>
           </div>
 
           <Link href="/projects" className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition">
@@ -48,7 +55,7 @@ export default function ProjectsHighlight() {
         </div>
 
         <motion.ul variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-10% 0% -10% 0%" }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {featured.map((p) => (
+          {cards.map((p) => (
             <motion.li key={p.slug} variants={item}>
               <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                 {/* cover */}
