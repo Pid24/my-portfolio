@@ -1,5 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -8,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/splash/PageTransition";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
+import FloatingContact from "@/components/FloatingContact"; // ⬅️ DITAMBAH
 
 // ====== CONFIG: domain & default OG ======
 const siteUrl = "https://rofid-dev.my.id";
@@ -44,7 +46,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const year = new Date().getFullYear();
 
   return (
@@ -62,6 +64,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Konten halaman */}
           {children}
+
+          {/* Tombol kontak mengambang (mobile only) */}
+          <FloatingContact />
 
           {/* Footer */}
           <Footer year={year} />
