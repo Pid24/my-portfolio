@@ -79,4 +79,18 @@ export const PROJECTS: Project[] = [
     links: { live: "https://anime-hubs.vercel.app/" },
     featured: false,
   },
+  {
+    slug: "mplid-predictor",
+    title: "MPL ID Predictor",
+    excerpt: "Aplikasi analitik & prediksi MPL Indonesia. Menghitung peluang menang dua tim berbasis data standings, team stats, dan kedalaman draft. Termasuk standings live, detail tim, player pools teratas, dan feed transfer.",
+    cover: "/images/mplid.png",
+    stack: ["Next.js 15", "TypeScript", "Tailwind", "Server Components", "API Routes"],
+    category: "Landing Page",
+    period: "2025",
+    links: {
+      live: "#",
+      github: "#",
+    },
+    featured: true,
+  },
 ];
