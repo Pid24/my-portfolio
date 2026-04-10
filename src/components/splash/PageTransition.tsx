@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LoadingSplash from "@/components/splash/LoadingSplash"; // pakai loader kamu
 
-export default function PageTransition({ minDuration = 700 }: { minDuration?: number }) {
+export default function PageTransition({ minDuration = 300 }: { minDuration?: number }) {
   const pathname = usePathname();
   const prev = useRef(pathname);
   const [show, setShow] = useState(false);

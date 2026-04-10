@@ -65,7 +65,7 @@ export default function WhatsAppContact() {
       if (typedIncludes(PROJECT_TYPES, type)) setProjectType(type);
       if (typedIncludes(BUDGETS, b)) setBudget(b);
       if (typedIncludes(TIMELINES, t)) setTimeline(t);
-      setRefUrl(window.location.href);
+      setRefUrl(window.location.origin + window.location.pathname);
     } catch {
       // no-op
     }

@@ -83,7 +83,7 @@ export default function Footer({ year }: { year: number }) {
                   <a
                     href={href}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     aria-label={label}
                     style={{ ["--brand"]: hex } as CSSVars}
                     className={[

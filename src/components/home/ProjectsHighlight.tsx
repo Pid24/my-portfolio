@@ -14,15 +14,10 @@ function yearOf(p?: string) {
 }
 
 export default function ProjectsHighlight() {
-  // Sorting helper: terbaru dulu; tie-breaker judul biar stabil
-  const sortByRecent = (a: (typeof PROJECTS)[number], b: (typeof PROJECTS)[number]) => yearOf(b.period) - yearOf(a.period) || a.title.localeCompare(b.title);
-
-  // Jika semua period gagal diparse (semua 0), fallback ke urutan dibalik
-  const hasValidYear = PROJECTS.some((p) => yearOf(p.period) > 0);
-  const latest = hasValidYear ? [...PROJECTS].sort(sortByRecent) : [...PROJECTS].reverse();
-
-  // Ambil 3 terbaru
-  const cards = latest.slice(0, 3);
+  // Sort by recent, then alphabetically
+  const cards = [...PROJECTS]
+    .sort((a, b) => yearOf(b.period) - yearOf(a.period) || a.title.localeCompare(b.title))
+    .slice(0, 3);
 
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } } as const;
   const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } } } as const;
@@ -55,12 +50,12 @@ export default function ProjectsHighlight() {
         </div>
 
         <motion.ul variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-10% 0% -10% 0%" }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {cards.map((p) => (
+          {cards.map((p, i) => (
             <motion.li key={p.slug} variants={item}>
               <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                 {/* cover */}
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                  <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={i === 0} />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 

@@ -19,15 +19,15 @@ export default function LoadingSplash() {
         aria-hidden
         className="absolute -top-20 -right-10 h-[40rem] w-[40rem] rounded-[40%] blur-3xl opacity-30"
         style={{ background: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
-        animate={reduce ? undefined : { rotate: [0, 20, 0], borderRadius: ["40% 60% 55% 45% / 45% 45% 55% 55%", "60% 40% 45% 55% / 50% 60% 40% 50%", "40% 60% 55% 45% / 45% 45% 55% 55%"], scale: [1, 1.05, 1] }}
-        transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }}
+        animate={reduce ? undefined : { rotate: [0, 360] }}
+        transition={{ duration: 18, ease: "linear", repeat: Infinity }}
       />
       <motion.div
         aria-hidden
         className="absolute -bottom-24 -left-16 h-[36rem] w-[36rem] rounded-[45%] blur-3xl opacity-25"
         style={{ background: "radial-gradient(closest-side, rgba(99,102,241,0.45), transparent)" }}
-        animate={reduce ? undefined : { y: [0, 24, 0], rotate: [0, -15, 0] }}
-        transition={{ duration: 14, ease: "easeInOut", repeat: Infinity }}
+        animate={reduce ? undefined : { rotate: [360, 0] }}
+        transition={{ duration: 24, ease: "linear", repeat: Infinity }}
       />
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-6">
         <div className="relative h-32 w-32">

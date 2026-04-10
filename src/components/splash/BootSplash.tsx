@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LoadingSplash from "@/components/splash/LoadingSplash";
 
-export default function BootSplash({ minDuration = 900 }: { minDuration?: number }) {
+export default function BootSplash({ minDuration = 300 }: { minDuration?: number }) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {

@@ -176,7 +176,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
         ) : (
           <>
             <motion.ul variants={container} initial="hidden" animate="show" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {shown.map((p) => {
+              {shown.map((p, i) => {
                 const liveHref = liveHrefFor(p);
                 const external = isExternalUrl(liveHref);
 
@@ -185,7 +185,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
                     <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                       {/* cover */}
                       <div className="relative aspect-[16/10] overflow-hidden">
-                        <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={false} />
+                        <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={i < 2} />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
 
