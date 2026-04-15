@@ -203,17 +203,41 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
                           {p.stack.length > 5 && <span className="text-[11px] text-foreground/50">+{p.stack.length - 5}</span>}
                         </div>
 
-                        {/* CTA Live */}
-                        <div className="mt-4">
-                          <a
-                            href={liveHref}
-                            target={external ? "_blank" : undefined}
-                            rel={external ? "noopener noreferrer" : undefined}
-                            className="inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-medium hover:bg-foreground/5 transition"
-                            aria-label={`Open live preview for ${p.title}`}
-                          >
-                            Live
-                          </a>
+                        {/* CTA Links */}
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {p.links?.live && p.links.live !== "#" && (
+                            <a
+                              href={p.links.live}
+                              target={isExternalUrl(p.links.live) ? "_blank" : undefined}
+                              rel={isExternalUrl(p.links.live) ? "noopener noreferrer" : undefined}
+                              className="inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-medium hover:bg-foreground/5 transition"
+                              aria-label={`Open live preview for ${p.title}`}
+                            >
+                              Live
+                            </a>
+                          )}
+                          {p.links?.youtube && (
+                            <a
+                              href={p.links.youtube}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 px-3 py-2 text-sm font-medium hover:bg-red-500/20 transition"
+                              aria-label={`Watch demo for ${p.title}`}
+                            >
+                              Demo Video
+                            </a>
+                          )}
+                          {p.links?.github && (
+                            <a
+                              href={p.links.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-medium hover:bg-foreground/5 transition"
+                              aria-label={`View source code for ${p.title}`}
+                            >
+                              Source Code
+                            </a>
+                          )}
                         </div>
                       </div>
 
