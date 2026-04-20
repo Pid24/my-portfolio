@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { PROJECTS } from "@/data/projects";
 
 // Ambil angka tahun pertama dari string period, mis. "2024", "2023–2024", "2025/ongoing"
@@ -54,14 +54,16 @@ export default function ProjectsHighlight() {
             <motion.li key={p.slug} variants={item}>
               <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                 {/* cover */}
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <Link href={`/projects/${p.slug}`} className="block relative aspect-[16/10] overflow-hidden">
                   <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={i === 0} />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
+                </Link>
 
                 {/* body */}
                 <div className="p-4 md:p-5">
-                  <h3 className="text-base md:text-lg font-semibold tracking-tight">{p.title}</h3>
+                  <Link href={`/projects/${p.slug}`} className="hover:underline decoration-foreground/30 underline-offset-2">
+                    <h3 className="text-base md:text-lg font-semibold tracking-tight">{p.title}</h3>
+                  </Link>
                   <p className="mt-1 text-sm text-foreground/70 line-clamp-2">{p.excerpt}</p>
 
                   {/* badges */}

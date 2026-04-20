@@ -3,7 +3,8 @@
 import { useMemo, useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { Search, BookOpen } from "lucide-react";
 import { PROJECTS, type Project } from "@/data/projects";
 
 type Props = {
@@ -19,13 +20,6 @@ function yearOf(p?: string) {
   if (!p) return 0;
   const m = p.match(/\d{4}/);
   return m ? parseInt(m[0], 10) : 0;
-}
-
-// ambil href live yang aman (fallback ke /projects)
-function liveHrefFor(p: Project): string {
-  const raw = p.links?.live?.trim();
-  if (!raw || raw === "#") return "/projects";
-  return raw;
 }
 
 // cek apakah external (biar bisa open in new tab + rel proper)
@@ -177,21 +171,20 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
           <>
             <motion.ul variants={container} initial="hidden" animate="show" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {shown.map((p, i) => {
-                const liveHref = liveHrefFor(p);
-                const external = isExternalUrl(liveHref);
-
                 return (
                   <motion.li key={p.slug} variants={item}>
                     <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                       {/* cover */}
-                      <div className="relative aspect-[16/10] overflow-hidden">
+                      <Link href={`/projects/${p.slug}`} className="block relative aspect-[16/10] overflow-hidden">
                         <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={i < 2} />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </div>
+                      </Link>
 
                       {/* body */}
                       <div className="p-4 md:p-5">
-                        <h3 className="text-base md:text-lg font-semibold tracking-tight">{p.title}</h3>
+                        <Link href={`/projects/${p.slug}`} className="hover:underline decoration-foreground/30 underline-offset-2">
+                          <h3 className="text-base md:text-lg font-semibold tracking-tight">{p.title}</h3>
+                        </Link>
                         <p className="mt-1 text-sm text-foreground/70 line-clamp-2">{p.excerpt}</p>
 
                         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -205,6 +198,13 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
 
                         {/* CTA Links */}
                         <div className="mt-4 flex flex-wrap gap-2">
+                          <Link
+                            href={`/projects/${p.slug}`}
+                            className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 px-3 py-2 text-sm font-medium hover:bg-indigo-500/20 transition"
+                          >
+                            <BookOpen className="h-3.5 w-3.5" />
+                            Detail
+                          </Link>
                           {p.links?.live && p.links.live !== "#" && (
                             <a
                               href={p.links.live}
