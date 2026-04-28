@@ -4,17 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import {
-  ArrowLeft,
-  ExternalLink,
-  Github,
-  Play,
-  CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
-  Calendar,
-  Layers,
-} from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Play, ChevronLeft, ChevronRight, Calendar, Layers } from "lucide-react";
 import type { Project } from "@/data/projects";
 
 /* ============================================================
@@ -73,18 +63,10 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
       />
 
       {/* content */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16"
-      >
+      <motion.div variants={container} initial="hidden" animate="show" className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16">
         {/* ── breadcrumb ── */}
         <motion.div variants={item} className="mb-6 flex items-center justify-between gap-4 flex-wrap">
-          <Link
-            href="/projects"
-            className="group inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors"
-          >
+          <Link href="/projects" className="group inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             Semua Projects
           </Link>
@@ -100,14 +82,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         {/* ── hero cover ── */}
         <motion.div variants={item} className="relative overflow-hidden rounded-2xl border shadow-lg">
           <div className="relative aspect-[21/9] w-full">
-            <Image
-              src={p.cover}
-              alt={p.title}
-              fill
-              priority
-              sizes="(min-width: 1024px) 1024px, 100vw"
-              className="object-cover"
-            />
+            <Image src={p.cover} alt={p.title} fill priority sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
           </div>
 
@@ -121,9 +96,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         {/* ── title & meta ── */}
         <motion.div variants={item} className="mt-8">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">
-              {p.title}
-            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">{p.title}</span>
           </h1>
           <p className="mt-3 text-base md:text-lg text-foreground/70 max-w-3xl leading-relaxed">{p.excerpt}</p>
         </motion.div>
@@ -131,10 +104,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         {/* ── stack badges ── */}
         <motion.div variants={item} className="mt-5 flex flex-wrap gap-2">
           {p.stack.map((s) => (
-            <span
-              key={s}
-              className="rounded-xl border px-3 py-1.5 text-xs font-medium text-foreground/80 bg-foreground/[0.03]"
-            >
+            <span key={s} className="rounded-xl border px-3 py-1.5 text-xs font-medium text-foreground/80 bg-foreground/[0.03]">
               {s}
             </span>
           ))}
@@ -154,12 +124,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
             </a>
           )}
           {p.links?.github && (
-            <a
-              href={p.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-2xl border px-5 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors"
-            >
+            <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border px-5 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors">
               <Github className="h-4 w-4" />
               Source Code
             </a>
@@ -177,7 +142,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
           )}
         </motion.div>
 
-        {/* ──────── Case Study ──────── */}
+        {/* ──────── Project Overview ──────── */}
         {cs && (
           <>
             {/* ── divider ── */}
@@ -192,53 +157,16 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
                 />
               </div>
               <h2 className="mt-8 text-2xl md:text-3xl font-bold tracking-tight text-center">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">
-                  Case Study
-                </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Project Overview</span>
               </h2>
-              <p className="mt-2 text-sm text-foreground/60 text-center">
-                Bagaimana proyek ini dibangun, tantangan yang dihadapi, dan solusi yang diterapkan.
-              </p>
             </motion.div>
 
-            {/* ── problem & solution cards ── */}
-            <motion.div variants={item} className="grid md:grid-cols-2 gap-4 md:gap-6">
-              {/* Problem */}
+            {/* ── latar belakang ── */}
+            <motion.div variants={item}>
               <div className="rounded-2xl border bg-background/60 p-5 md:p-6">
-                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-400">
-                  <span className="h-2 w-2 rounded-full bg-red-500" />
-                  The Problem
-                </div>
                 <p className="text-sm md:text-base text-foreground/80 leading-relaxed">{cs.problem}</p>
               </div>
-
-              {/* Solution */}
-              <div className="rounded-2xl border bg-background/60 p-5 md:p-6">
-                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-400">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                  The Solution
-                </div>
-                <p className="text-sm md:text-base text-foreground/80 leading-relaxed">{cs.solution}</p>
-              </div>
             </motion.div>
-
-            {/* ── features list ── */}
-            {cs.features && cs.features.length > 0 && (
-              <motion.div variants={item} className="mt-8 md:mt-10">
-                <h3 className="text-lg md:text-xl font-semibold tracking-tight mb-4">Key Features</h3>
-                <ul className="grid sm:grid-cols-2 gap-3">
-                  {cs.features.map((f, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 rounded-xl border bg-background/60 p-3 md:p-4 text-sm text-foreground/80"
-                    >
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
 
             {/* ── gallery carousel ── */}
             {galleryImages.length > 1 && (
@@ -247,21 +175,8 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
                 <div className="relative overflow-hidden rounded-2xl border bg-background/60">
                   <div className="relative aspect-[16/10]">
                     <AnimatePresence mode="wait">
-                      <motion.div
-                        key={galleryIdx}
-                        className="absolute inset-0"
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -30 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      >
-                        <Image
-                          src={galleryImages[galleryIdx]}
-                          alt={`${p.title} screenshot ${galleryIdx + 1}`}
-                          fill
-                          sizes="(min-width: 1024px) 1024px, 100vw"
-                          className="object-cover"
-                        />
+                      <motion.div key={galleryIdx} className="absolute inset-0" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3, ease: "easeOut" }}>
+                        <Image src={galleryImages[galleryIdx]} alt={`${p.title} screenshot ${galleryIdx + 1}`} fill sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
                       </motion.div>
                     </AnimatePresence>
                   </div>
@@ -285,15 +200,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
                   {/* dots */}
                   <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
                     {galleryImages.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setGalleryIdx(i)}
-                        className={[
-                          "h-2 rounded-full transition-all",
-                          i === galleryIdx ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/70",
-                        ].join(" ")}
-                        aria-label={`View image ${i + 1}`}
-                      />
+                      <button key={i} onClick={() => setGalleryIdx(i)} className={["h-2 rounded-full transition-all", i === galleryIdx ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/70"].join(" ")} aria-label={`View image ${i + 1}`} />
                     ))}
                   </div>
                 </div>
@@ -321,10 +228,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
 
         {/* ── bottom nav ── */}
         <motion.div variants={item} className="mt-12 md:mt-16 flex justify-center">
-          <Link
-            href="/projects"
-            className="group inline-flex items-center gap-2 rounded-2xl border px-5 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors"
-          >
+          <Link href="/projects" className="group inline-flex items-center gap-2 rounded-2xl border px-5 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             Kembali ke Projects
           </Link>
