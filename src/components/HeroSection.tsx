@@ -115,11 +115,10 @@ export function HeroSection() {
             <motion.div variants={itemUp} className="mt-6 flex flex-wrap items-center gap-3">
               <a
                 href={PROFILE.links.contact}
-                className="group inline-flex items-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-medium shadow-sm border bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
+                className="group inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold shadow-sm border-2 border-foreground bg-accent text-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
                 aria-label="Hubungi saya"
               >
                 Hubungi Saya
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </motion.div>
 
@@ -130,12 +129,13 @@ export function HeroSection() {
           </div>
         </motion.section>
 
-        {/* photo — guaranteed center on mobile */}
+        {/* photo — circular with decorative assets */}
         <section className="order-2 w-full flex items-center justify-center md:justify-end">
           <motion.div initial={{ opacity: 0, scale: 0.98, rotate: -1 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: "spring", damping: 20 }} whileHover={{ y: -3 }} className="relative mx-auto md:mx-0">
-            <div className="relative rounded-3xl p-[6px] bg-gradient-to-tr from-amber-500/60 via-accent/60 to-teal-500/60 shadow-xl mx-auto">
-              <div className="rounded-2xl overflow-hidden bg-background">
-                <div className="relative aspect-[3/4] w-[82vw] max-w-[360px] sm:w-[56vw] md:w-[360px] mx-auto">
+            {/* circular photo */}
+            <div className="relative rounded-full p-[6px] bg-gradient-to-tr from-amber-500/60 via-accent/60 to-teal-500/60 shadow-xl mx-auto">
+              <div className="rounded-full overflow-hidden bg-background">
+                <div className="relative aspect-square w-[260px] sm:w-[280px] md:w-[320px] mx-auto">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={photos[photoIndex]}
@@ -150,7 +150,7 @@ export function HeroSection() {
                         alt={`Foto ${PROFILE.name}`}
                         fill
                         priority={photoIndex === 0}
-                        sizes="(min-width:1024px) 360px, (min-width:640px) 56vw, 82vw"
+                        sizes="(min-width:1024px) 320px, (min-width:640px) 280px, 260px"
                         className="object-cover"
                         style={{ objectPosition: "center 20%" }}
                       />
@@ -160,9 +160,29 @@ export function HeroSection() {
               </div>
             </div>
 
+            {/* decorative asset: cross/plus — top right */}
             <motion.div
               aria-hidden
-              className="absolute inset-0 -z-10 blur-2xl opacity-35"
+              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-10 h-10 md:w-12 md:h-12"
+              animate={reduce ? {} : { rotate: [0, 90, 0] }}
+              transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+            >
+              <Image src="/images/asset-2.png" alt="" fill className="object-contain dark:invert" />
+            </motion.div>
+
+            {/* decorative asset: lines — bottom right */}
+            <motion.div
+              aria-hidden
+              className="absolute -bottom-2 -right-6 md:-bottom-4 md:-right-8 w-16 h-10 md:w-20 md:h-12"
+              animate={reduce ? {} : { y: [0, -4, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            >
+              <Image src="/images/asset-1.png" alt="" fill className="object-contain dark:invert" />
+            </motion.div>
+
+            <motion.div
+              aria-hidden
+              className="absolute inset-0 -z-10 blur-2xl opacity-35 rounded-full"
               style={{ backgroundImage: glowBg }}
               animate={reduce ? {} : { opacity: [0.3, 0.55, 0.3] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}

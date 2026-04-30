@@ -82,10 +82,10 @@ export default function AboutContent() {
         {/* Grid: foto kiri, teks kanan */}
         <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Foto (kiri) + slideshow + glow */}
-          <motion.div variants={item} className="order-1 relative">
-            <div className="relative rounded-3xl p-1 bg-gradient-to-tr from-amber-500/70 via-accent/70 to-teal-500/70 shadow-xl">
-              <div className="rounded-2xl overflow-hidden bg-background">
-                <div className="relative h-[380px] w-full md:h-[460px]">
+          <motion.div variants={item} className="order-1 relative flex justify-center">
+            <div className="relative rounded-full p-1 bg-gradient-to-tr from-amber-500/70 via-accent/70 to-teal-500/70 shadow-xl">
+              <div className="rounded-full overflow-hidden bg-background">
+                <div className="relative aspect-square w-[280px] md:w-[340px]">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={photos[photoIndex]}
@@ -95,17 +95,36 @@ export default function AboutContent() {
                       exit={{ opacity: 0, scale: 1.02 }}
                       transition={{ duration: 0.5, ease: "easeOut" }}
                     >
-                      <Image src={photos[photoIndex]} alt={`Foto ${PROFILE.name}`} fill priority={photoIndex === 0} sizes="(min-width: 768px) 520px, 100vw" className="object-cover" style={{ objectPosition: "center 20%" }} />
+                      <Image src={photos[photoIndex]} alt={`Foto ${PROFILE.name}`} fill priority={photoIndex === 0} sizes="(min-width: 768px) 340px, 280px" className="object-cover" style={{ objectPosition: "center 20%" }} />
                     </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
             </div>
+            {/* decorative asset: cross/plus — top right */}
+            <motion.div
+              aria-hidden
+              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-10 h-10 md:w-12 md:h-12"
+              animate={reduce ? {} : { rotate: [0, 90, 0] }}
+              transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+            >
+              <Image src="/images/asset-2.png" alt="" fill className="object-contain dark:invert" />
+            </motion.div>
+
+            {/* decorative asset: lines — bottom right */}
+            <motion.div
+              aria-hidden
+              className="absolute -bottom-2 -right-6 md:-bottom-4 md:-right-8 w-16 h-10 md:w-20 md:h-12"
+              animate={reduce ? {} : { y: [0, -4, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            >
+              <Image src="/images/asset-1.png" alt="" fill className="object-contain dark:invert" />
+            </motion.div>
 
             {/* Glow di belakang frame */}
             <motion.div
               aria-hidden
-              className="absolute inset-0 -z-10 blur-2xl opacity-40"
+              className="absolute inset-0 -z-10 blur-2xl opacity-40 rounded-full"
               style={{
                 backgroundImage: "radial-gradient(60% 60% at 50% 40%, rgba(245,158,11,0.45), transparent), radial-gradient(40% 40% at 30% 80%, rgba(20,184,166,0.35), transparent)",
               }}
