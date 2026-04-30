@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "pkumi-compro",
-    title: "Company Profile PKUMI",
+    title: "PKU MI",
     excerpt: "Website company profile Pendidikan Kader Ulama Masjid Istiqlal dengan panel admin untuk manajemen konten.",
     cover: "/images/pkumi.png",
     stack: ["Nextjs", "Laravel", "Tailwind"],

@@ -14,10 +14,11 @@ function yearOf(p?: string) {
 }
 
 export default function ProjectsHighlight() {
-  // Sort by recent, then alphabetically
-  const cards = [...PROJECTS]
-    .sort((a, b) => yearOf(b.period) - yearOf(a.period) || a.title.localeCompare(b.title))
-    .slice(0, 3);
+  // Sort by recent; same year → last added in array = newest
+  const cards = PROJECTS.map((p, i) => ({ p, i }))
+    .sort((a, b) => yearOf(b.p.period) - yearOf(a.p.period) || b.i - a.i)
+    .slice(0, 3)
+    .map(({ p }) => p);
 
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } } as const;
   const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } } } as const;

@@ -27,47 +27,38 @@ function isExternalUrl(href: string) {
   return /^https?:\/\//i.test(href) || href.startsWith("//");
 }
 
-export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle = "Projects", pageSubtitle = "Filter berdasarkan Tech Stack. Cari proyek atau stack favoritmu." }: Props) {
+export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle = "Projects", pageSubtitle = "Cari proyek atau urutkan sesuai kebutuhan." }: Props) {
   const reduce = useReducedMotion();
-
-  // derive stacks unik (alfabet)
-  const stacks = useMemo(() => {
-    const set = new Set<string>();
-    initialProjects.forEach((p) => p.stack.forEach((s) => set.add(s)));
-    return Array.from(set).sort((a, b) => a.localeCompare(b));
-  }, [initialProjects]);
 
   // state
   const [query, setQuery] = useState("");
-  const [activeStacks, setActiveStacks] = useState<Set<string>>(new Set());
   const [sortMode, setSortMode] = useState<SortMode>("recent");
   const [visible, setVisible] = useState(6);
 
-  // reset pagination saat filter/search/sort berubah
-  useEffect(() => setVisible(6), [query, activeStacks, sortMode]);
+  // reset pagination saat search/sort berubah
+  useEffect(() => setVisible(6), [query, sortMode]);
 
-  // filtering
+  // filtering & sorting
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
 
-    // filter text + stack (OR untuk stack)
-    const res = initialProjects.filter((p) => {
-      const passQuery = q.length === 0 || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q);
+    // buat indexed array agar bisa pakai index sebagai tiebreaker
+    const indexed = initialProjects.map((p, i) => ({ p, i }));
 
-      const passStacks = activeStacks.size === 0 || p.stack.some((s) => activeStacks.has(s)); // OR
-
-      return passQuery && passStacks;
+    const res = indexed.filter(({ p }) => {
+      return q.length === 0 || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q);
     });
 
     // sorting
     if (sortMode === "recent") {
-      res.sort((a, b) => yearOf(b.period) - yearOf(a.period) || a.title.localeCompare(b.title));
+      // urutkan berdasarkan tahun (terbaru), tiebreaker: index terbesar = ditambahkan paling akhir = paling baru
+      res.sort((a, b) => yearOf(b.p.period) - yearOf(a.p.period) || b.i - a.i);
     } else {
-      res.sort((a, b) => a.title.localeCompare(b.title));
+      res.sort((a, b) => a.p.title.localeCompare(b.p.title));
     }
 
-    return res;
-  }, [initialProjects, query, activeStacks, sortMode]);
+    return res.map(({ p }) => p);
+  }, [initialProjects, query, sortMode]);
 
   const shown = filtered.slice(0, visible);
 
@@ -81,16 +72,6 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
     hidden: { opacity: 0, y: reduce ? 0 : 10 },
     show: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, duration: reduce ? 0 : undefined } },
   } as const;
-
-  // toggle chip stack
-  function toggleStack(s: string) {
-    setActiveStacks((prev) => {
-      const next = new Set(prev);
-      if (next.has(s)) next.delete(s);
-      else next.add(s);
-      return next;
-    });
-  }
 
   return (
     <section
@@ -113,32 +94,8 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
           <p className="mt-2 text-sm text-foreground/70">{pageSubtitle}</p>
         </div>
 
-        {/* Controls */}
-        <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center">
-          {/* Chips Tech Stack */}
-          <div className="flex flex-wrap gap-2">
-            {stacks.map((s) => {
-              const active = activeStacks.has(s);
-              return (
-                <button
-                  key={s}
-                  onClick={() => toggleStack(s)}
-                  className={["rounded-xl border px-3 py-1.5 text-sm transition-all", active ? "border-primary/30 bg-primary/10 text-primary" : "border-foreground/10 hover:bg-foreground/5 text-foreground/80"].join(" ")}
-                  aria-pressed={active}
-                >
-                  {s}
-                </button>
-              );
-            })}
-            {activeStacks.size > 0 && (
-              <button onClick={() => setActiveStacks(new Set())} className="rounded-xl border px-3 py-1.5 text-sm text-foreground/70 hover:bg-foreground/5">
-                Reset
-              </button>
-            )}
-          </div>
-
-          {/* Search + Sort */}
-          <div className="md:ml-auto flex items-center gap-2">
+        {/* Controls: Search + Sort */}
+        <div className="mb-6 flex items-center gap-2">
             <label className="group relative block">
               <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/50" />
               <input
@@ -155,13 +112,12 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
               <option value="recent">Terbaru</option>
               <option value="az">A-Z</option>
             </select>
-          </div>
         </div>
 
         {/* Count */}
         <div className="mb-4 text-sm text-foreground/60">
           Menampilkan <strong>{shown.length}</strong> dari <strong>{filtered.length}</strong> proyek
-          {activeStacks.size > 0 || query ? " (hasil filter)" : ""}.
+          {query ? " (hasil pencarian)" : ""}.
         </div>
 
         {/* Grid */}
