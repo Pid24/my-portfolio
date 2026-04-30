@@ -88,8 +88,8 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16">
         {/* Header */}
         <div className="mb-6 md:mb-8">
-          <h1 id="projects-heading" className="text-2xl md:text-3xl font-bold tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">{pageTitle}</span>
+          <h1 id="projects-heading" className="text-2xl md:text-3xl font-serif tracking-tight">
+            <span className="text-foreground">{pageTitle}</span>
           </h1>
           <p className="mt-2 text-sm text-foreground/70">{pageSubtitle}</p>
         </div>
@@ -156,7 +156,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
                         <div className="mt-4 flex flex-wrap gap-2">
                           <Link
                             href={`/projects/${p.slug}`}
-                            className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 px-3 py-2 text-sm font-medium hover:bg-indigo-500/20 transition"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-accent/30 bg-accent/10 text-foreground px-3 py-2 text-sm font-medium hover:bg-accent/20 transition"
                           >
                             <BookOpen className="h-3.5 w-3.5" />
                             Detail
@@ -198,7 +198,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
                       </div>
 
                       {/* hover ring */}
-                      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-indigo-400/0 group-hover:ring-2 group-hover:ring-indigo-400/30 transition-all" />
+                      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-accent/0 group-hover:ring-2 group-hover:ring-accent/30 transition-all" />
                     </article>
                   </motion.li>
                 );

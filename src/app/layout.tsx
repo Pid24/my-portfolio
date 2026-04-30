@@ -1,7 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Serif_Display, Inter } from "next/font/google";
 import "./globals.css";
 
 import BootSplash from "@/components/splash/BootSplash";
@@ -9,14 +9,14 @@ import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/splash/PageTransition";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
-import FloatingContact from "@/components/FloatingContact"; // ⬅️ DITAMBAH
+import FloatingContact from "@/components/FloatingContact";
 
 // ====== CONFIG: domain & default OG ======
 const siteUrl = "https://rofid-dev.my.id";
 const ogImage = "/images/og-default.png";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const serifFont = DM_Serif_Display({ weight: "400", variable: "--font-serif", subsets: ["latin"], display: "swap" });
+const sansFont = Inter({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-clip`}>
+      <body className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased overflow-x-clip`}>
         <ThemeProvider>
           {/* Splash saat refresh */}
           <BootSplash minDuration={900} />

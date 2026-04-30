@@ -64,8 +64,8 @@ export function HeroSection() {
   const stableSeed = useMemo(() => hashString(`${PROFILE.name}|${PROFILE.photoUrl}`), []);
   const flip = (stableSeed & 1) === 0;
   const glowBg = flip
-    ? "radial-gradient(60% 60% at 50% 40%, rgba(56,189,248,0.35), transparent), radial-gradient(40% 40% at 30% 80%, rgba(168,85,247,0.30), transparent)"
-    : "radial-gradient(60% 60% at 50% 40%, rgba(129,140,248,0.40), transparent), radial-gradient(40% 40% at 30% 80%, rgba(34,211,238,0.30), transparent)";
+    ? "radial-gradient(60% 60% at 50% 40%, rgba(245,158,11,0.35), transparent), radial-gradient(40% 40% at 30% 80%, rgba(20,184,166,0.30), transparent)"
+    : "radial-gradient(60% 60% at 50% 40%, rgba(200,230,63,0.30), transparent), radial-gradient(40% 40% at 30% 80%, rgba(245,158,11,0.25), transparent)";
 
   return (
     <main
@@ -79,14 +79,14 @@ export function HeroSection() {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-30"
-        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
+        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #f59e0b, #14b8a6, #C8E63F, #f59e0b)" }}
         animate={reduce ? {} : { y: [0, -16, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-20"
-        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.5), transparent)" }}
+        style={{ backgroundImage: "radial-gradient(closest-side, rgba(200,230,63,0.4), transparent)" }}
         animate={reduce ? {} : { y: [0, 14, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
@@ -96,8 +96,8 @@ export function HeroSection() {
         {/* text */}
         <motion.section variants={container} initial="hidden" animate="show" className="order-1 w-full">
           <div className="max-w-xl">
-            <motion.h1 variants={itemUp} className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">{PROFILE.name}</span>
+            <motion.h1 variants={itemUp} className="text-3xl sm:text-4xl lg:text-6xl font-serif leading-tight tracking-tight">
+              <span className="text-foreground">{PROFILE.name}</span>
             </motion.h1>
 
             <motion.p variants={itemUp} className="mt-2 text-base sm:text-lg text-muted-foreground">
@@ -133,7 +133,7 @@ export function HeroSection() {
         {/* photo — guaranteed center on mobile */}
         <section className="order-2 w-full flex items-center justify-center md:justify-end">
           <motion.div initial={{ opacity: 0, scale: 0.98, rotate: -1 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: "spring", damping: 20 }} whileHover={{ y: -3 }} className="relative mx-auto md:mx-0">
-            <div className="relative rounded-3xl p-[6px] bg-gradient-to-tr from-indigo-500/60 via-cyan-400/60 to-violet-500/60 shadow-xl mx-auto">
+            <div className="relative rounded-3xl p-[6px] bg-gradient-to-tr from-amber-500/60 via-accent/60 to-teal-500/60 shadow-xl mx-auto">
               <div className="rounded-2xl overflow-hidden bg-background">
                 <div className="relative aspect-[3/4] w-[82vw] max-w-[360px] sm:w-[56vw] md:w-[360px] mx-auto">
                   <AnimatePresence mode="wait">

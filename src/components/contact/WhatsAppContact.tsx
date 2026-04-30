@@ -127,14 +127,14 @@ export default function WhatsAppContact() {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-25"
-        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
+        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #f59e0b, #14b8a6, #C8E63F, #f59e0b)" }}
         animate={reduce ? {} : { y: [0, -16, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-20"
-        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.55), transparent)" }}
+        style={{ backgroundImage: "radial-gradient(closest-side, rgba(200,230,63,0.4), transparent)" }}
         animate={reduce ? {} : { y: [0, 14, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
@@ -142,8 +142,8 @@ export default function WhatsAppContact() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-16 md:py-24">
         {/* Header */}
         <motion.div initial={reduce ? undefined : { opacity: 0, y: 8 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ type: "spring", damping: 20 }} className="mb-10 md:mb-14">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Contact</span>
+          <h1 className="text-3xl md:text-4xl font-serif tracking-tight">
+            <span className="text-foreground">Contact</span>
           </h1>
           <p className="mt-2 text-foreground/70">Chat langsung via WhatsApp.</p>
         </motion.div>

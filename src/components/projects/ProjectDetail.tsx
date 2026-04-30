@@ -50,14 +50,14 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-30"
-        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
+        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #f59e0b, #14b8a6, #C8E63F, #f59e0b)" }}
         animate={reduce ? {} : { y: [0, -16, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-20"
-        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.5), transparent)" }}
+        style={{ backgroundImage: "radial-gradient(closest-side, rgba(200,230,63,0.4), transparent)" }}
         animate={reduce ? {} : { y: [0, 14, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
@@ -95,8 +95,8 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
 
         {/* ── title & meta ── */}
         <motion.div variants={item} className="mt-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">{p.title}</span>
+          <h1 className="text-3xl md:text-4xl font-serif tracking-tight">
+            <span className="text-foreground">{p.title}</span>
           </h1>
           <p className="mt-3 text-base md:text-lg text-foreground/70 max-w-3xl leading-relaxed">{p.excerpt}</p>
         </motion.div>
@@ -150,14 +150,14 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
               <div className="relative h-px w-full overflow-hidden">
                 <motion.span
                   aria-hidden
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/60 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/60 to-transparent"
                   style={{ backgroundSize: "200% 100%" }}
                   animate={reduce ? undefined : { backgroundPositionX: ["0%", "200%", "0%"] }}
                   transition={reduce ? undefined : { duration: 6, repeat: Infinity, ease: "linear" }}
                 />
               </div>
-              <h2 className="mt-8 text-2xl md:text-3xl font-bold tracking-tight text-center">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Project Overview</span>
+              <h2 className="mt-8 text-2xl md:text-3xl font-serif tracking-tight text-center">
+                <span className="text-foreground">Project Overview</span>
               </h2>
             </motion.div>
 

@@ -39,7 +39,7 @@ export default function Navbar() {
   if (!mounted) {
     return (
       <>
-        <motion.div className="fixed left-0 right-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-indigo-500 via-cyan-400 to-violet-500" />
+        <motion.div className="fixed left-0 right-0 top-0 z-[60] h-[3px] origin-left bg-accent" />
         <header className="sticky top-0 z-50 h-16 w-screen mx-[calc(50%-50vw)] bg-background/30" />
       </>
     );
@@ -48,7 +48,7 @@ export default function Navbar() {
   return (
     <>
       {/* progress bar atas */}
-      <motion.div className="fixed left-0 right-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-indigo-500 via-cyan-400 to-violet-500" style={{ scaleX: scrollYProgress }} />
+      <motion.div className="fixed left-0 right-0 top-0 z-[60] h-[3px] origin-left bg-accent" style={{ scaleX: scrollYProgress }} />
 
       <header
         className={[
@@ -61,7 +61,7 @@ export default function Navbar() {
         <div className="relative mx-auto h-16 max-w-5xl px-4 md:px-6 flex items-center justify-between">
           {/* Left: Logo */}
           <Link href="/" className="inline-flex items-center">
-            <span className="text-lg md:text-xl font-semibold tracking-tight bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent">Rofid</span>
+            <span className="text-lg md:text-xl font-serif font-normal tracking-tight text-foreground">Rofid.</span>
           </Link>
 
           {/* Right: Theme toggle + Mobile toggle */}
@@ -137,12 +137,12 @@ function DesktopNav({ pathname }: { pathname: string }) {
           return (
             <li key={item.href} className="relative" onMouseEnter={() => setHovered(item.href)} onMouseLeave={() => setHovered(null)}>
               {/* shared moving pill — initial={false} agar SSR/CSR konsisten */}
-              {isShown && <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-xl border border-foreground/10 bg-foreground/[0.06]" transition={{ type: "spring", stiffness: 380, damping: 30 }} initial={false} />}
+              {isShown && <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-xl border border-accent/20 bg-accent/[0.08]" transition={{ type: "spring", stiffness: 380, damping: 30 }} initial={false} />}
 
               <Link href={item.href} className="group relative inline-flex items-center rounded-xl px-3 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors" aria-current={active ? "page" : undefined}>
                 <span className="relative">
                   {item.label}
-                  {isShown && <motion.span layoutId="nav-underline" className="absolute -bottom-1 left-0 h-[2px] w-full rounded bg-gradient-to-r from-indigo-500 to-cyan-400" initial={false} transition={{ duration: reduce ? 0 : 0.18 }} />}
+                  {isShown && <motion.span layoutId="nav-underline" className="absolute -bottom-1 left-0 h-[2px] w-full rounded bg-accent" initial={false} transition={{ duration: reduce ? 0 : 0.18 }} />}
                 </span>
               </Link>
             </li>

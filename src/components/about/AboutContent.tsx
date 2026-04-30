@@ -57,14 +57,14 @@ export default function AboutContent() {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-30"
-        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
+        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #f59e0b, #14b8a6, #C8E63F, #f59e0b)" }}
         animate={reduce ? {} : { y: [0, -18, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-20"
-        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.55), transparent)" }}
+        style={{ backgroundImage: "radial-gradient(closest-side, rgba(200,230,63,0.4), transparent)" }}
         animate={reduce ? {} : { y: [0, 16, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
@@ -73,8 +73,8 @@ export default function AboutContent() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-16 md:py-24">
         {/* Header */}
         <motion.div initial={reduce ? undefined : { opacity: 0, y: 8 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ type: "spring", damping: 20 }} className="mb-10 md:mb-14">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">About</span>
+          <h1 className="text-3xl md:text-4xl font-serif tracking-tight">
+            <span className="text-foreground">About</span>
           </h1>
           <p className="mt-2 text-foreground/70">Kenalan singkat tentang saya.</p>
         </motion.div>
@@ -83,7 +83,7 @@ export default function AboutContent() {
         <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Foto (kiri) + slideshow + glow */}
           <motion.div variants={item} className="order-1 relative">
-            <div className="relative rounded-3xl p-1 bg-gradient-to-tr from-indigo-500/70 via-cyan-400/70 to-violet-500/70 shadow-xl">
+            <div className="relative rounded-3xl p-1 bg-gradient-to-tr from-amber-500/70 via-accent/70 to-teal-500/70 shadow-xl">
               <div className="rounded-2xl overflow-hidden bg-background">
                 <div className="relative h-[380px] w-full md:h-[460px]">
                   <AnimatePresence mode="wait">
@@ -107,7 +107,7 @@ export default function AboutContent() {
               aria-hidden
               className="absolute inset-0 -z-10 blur-2xl opacity-40"
               style={{
-                backgroundImage: "radial-gradient(60% 60% at 50% 40%, rgba(129,140,248,0.45), transparent), radial-gradient(40% 40% at 30% 80%, rgba(34,211,238,0.35), transparent)",
+                backgroundImage: "radial-gradient(60% 60% at 50% 40%, rgba(245,158,11,0.45), transparent), radial-gradient(40% 40% at 30% 80%, rgba(20,184,166,0.35), transparent)",
               }}
               animate={reduce ? {} : { opacity: [0.35, 0.55, 0.35] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
@@ -158,8 +158,8 @@ export default function AboutContent() {
         {/* GitHub Stats Section */}
         <motion.div variants={item} initial="hidden" animate="show" className="mt-20 border-t border-foreground/10 pt-16">
           <div className="text-center mb-10">
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Coding Activity</span>
+            <h3 className="text-2xl md:text-3xl font-serif tracking-tight">
+              <span className="text-foreground">Coding Activity</span>
             </h3>
             <p className="mt-2 text-foreground/70">Statistik live langsung dari GitHub saya.</p>
           </div>
@@ -168,13 +168,13 @@ export default function AboutContent() {
             {/* Stats Cards (Left) */}
             <div className="md:col-span-4 flex flex-col gap-4">
               <div className="flex-1 rounded-2xl border bg-background/60 p-6 flex flex-col items-center justify-center text-center shadow-sm backdrop-blur">
-                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-violet-500">
+                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-accent">
                   {ghStats ? ghStats.public_repos : "..."}
                 </span>
                 <span className="mt-3 text-xs font-bold text-foreground/60 uppercase tracking-widest">Public Repos</span>
               </div>
               <div className="flex-1 rounded-2xl border bg-background/60 p-6 flex flex-col items-center justify-center text-center shadow-sm backdrop-blur">
-                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-emerald-400">
+                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-teal-500 to-accent">
                   {ghStats ? ghStats.followers : "..."}
                 </span>
                 <span className="mt-3 text-xs font-bold text-foreground/60 uppercase tracking-widest">Followers</span>

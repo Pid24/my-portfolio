@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "@/data/projects";
 
 // Ambil angka tahun pertama dari string period, mis. "2024", "2023–2024", "2025/ongoing"
@@ -38,8 +38,8 @@ export default function ProjectsHighlight() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16">
         <div className="mb-6 md:mb-8 flex items-end justify-between gap-4">
           <div>
-            <h2 id="latest-projects" className="text-2xl md:text-3xl font-bold tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Latest Projects</span>
+            <h2 id="latest-projects" className="text-2xl md:text-3xl font-serif tracking-tight">
+              <span className="text-foreground">Latest Projects</span>
             </h2>
             <p className="mt-2 text-sm text-foreground/70">Tiga proyek paling baru.</p>
           </div>
@@ -79,7 +79,7 @@ export default function ProjectsHighlight() {
                 </div>
 
                 {/* hover ring */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-indigo-400/0 group-hover:ring-2 group-hover:ring-indigo-400/30 transition-all" />
+                <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-accent/0 group-hover:ring-2 group-hover:ring-accent/30 transition-all" />
               </article>
             </motion.li>
           ))}

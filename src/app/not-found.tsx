@@ -24,14 +24,14 @@ export default function NotFound() {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full blur-3xl opacity-30"
-        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
+        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #f59e0b, #14b8a6, #C8E63F, #f59e0b)" }}
         animate={reduce ? {} : { y: [0, -18, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 -left-24 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-25"
-        style={{ backgroundImage: "radial-gradient(closest-side, rgba(99,102,241,0.55), transparent)" }}
+        style={{ backgroundImage: "radial-gradient(closest-side, rgba(200,230,63,0.4), transparent)" }}
         animate={reduce ? {} : { y: [0, 16, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
@@ -42,7 +42,7 @@ export default function NotFound() {
         <div className="relative">
           <motion.h1
             id="nf-title"
-            className="text-[20vw] md:text-9xl font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400 drop-shadow-sm"
+            className="text-[20vw] md:text-9xl font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-accent drop-shadow-sm"
             initial={reduce ? {} : { scale: 0.9, opacity: 0 }}
             animate={reduce ? {} : { scale: 1, opacity: 1 }}
             transition={{ type: "spring", damping: 18 }}

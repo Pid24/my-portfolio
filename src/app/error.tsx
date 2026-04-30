@@ -30,7 +30,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
       <motion.div
         aria-hidden
         className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-30"
-        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #8b5cf6, #22d3ee, #60a5fa, #8b5cf6)" }}
+        style={{ backgroundImage: "conic-gradient(from 180deg at 50% 50%, #f59e0b, #14b8a6, #C8E63F, #f59e0b)" }}
         animate={reduce ? {} : { rotate: [0, 20, 0] }}
         transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
       />
