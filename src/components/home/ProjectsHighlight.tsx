@@ -38,10 +38,9 @@ export default function ProjectsHighlight() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16">
         <div className="mb-6 md:mb-8 flex items-end justify-between gap-4">
           <div>
-            <h2 id="latest-projects" className="text-2xl md:text-3xl font-serif tracking-tight">
-              <span className="text-foreground">Latest Projects</span>
+            <h2 id="latest-projects" className="text-5xl md:text-6xl font-serif tracking-tight text-accent">
+              latest projects.
             </h2>
-            <p className="mt-2 text-sm text-foreground/70">Tiga proyek paling baru.</p>
           </div>
 
           <Link href="/projects" className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition">

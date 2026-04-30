@@ -142,10 +142,9 @@ export default function WhatsAppContact() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-16 md:py-24">
         {/* Header */}
         <motion.div initial={reduce ? undefined : { opacity: 0, y: 8 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ type: "spring", damping: 20 }} className="mb-10 md:mb-14">
-          <h1 className="text-3xl md:text-4xl font-serif tracking-tight">
-            <span className="text-foreground">Contact</span>
+          <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-accent">
+            contact.
           </h1>
-          <p className="mt-2 text-foreground/70">Chat langsung via WhatsApp.</p>
         </motion.div>
 
         {/* Grid */}

@@ -156,8 +156,8 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
                   transition={reduce ? undefined : { duration: 6, repeat: Infinity, ease: "linear" }}
                 />
               </div>
-              <h2 className="mt-8 text-2xl md:text-3xl font-serif tracking-tight text-center">
-                <span className="text-foreground">Project Overview</span>
+              <h2 className="mt-8 text-5xl md:text-6xl font-serif tracking-tight text-center text-accent">
+                project overview.
               </h2>
             </motion.div>
 

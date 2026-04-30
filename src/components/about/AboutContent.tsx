@@ -71,16 +71,8 @@ export default function AboutContent() {
 
       {/* CONTENT container */}
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-16 md:py-24">
-        {/* Header */}
-        <motion.div initial={reduce ? undefined : { opacity: 0, y: 8 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ type: "spring", damping: 20 }} className="mb-10 md:mb-14">
-          <h1 className="text-3xl md:text-4xl font-serif tracking-tight">
-            <span className="text-foreground">About</span>
-          </h1>
-          <p className="mt-2 text-foreground/70">Kenalan singkat tentang saya.</p>
-        </motion.div>
-
         {/* Grid: foto kiri, teks kanan */}
-        <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Foto (kiri) + slideshow + glow */}
           <motion.div variants={item} className="order-1 relative flex justify-center">
             <div className="relative rounded-full p-1 bg-gradient-to-tr from-amber-500/70 via-accent/70 to-teal-500/70 shadow-xl">
@@ -102,23 +94,8 @@ export default function AboutContent() {
               </div>
             </div>
             {/* decorative asset: cross/plus — top right */}
-            <motion.div
-              aria-hidden
-              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-10 h-10 md:w-12 md:h-12"
-              animate={reduce ? {} : { rotate: [0, 90, 0] }}
-              transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-            >
+            <motion.div aria-hidden className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-10 h-10 md:w-12 md:h-12" animate={reduce ? {} : { rotate: [0, 90, 0] }} transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}>
               <Image src="/images/asset-2.png" alt="" fill className="object-contain dark:invert" />
-            </motion.div>
-
-            {/* decorative asset: lines — bottom right */}
-            <motion.div
-              aria-hidden
-              className="absolute -bottom-2 -right-6 md:-bottom-4 md:-right-8 w-16 h-10 md:w-20 md:h-12"
-              animate={reduce ? {} : { y: [0, -4, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            >
-              <Image src="/images/asset-1.png" alt="" fill className="object-contain dark:invert" />
             </motion.div>
 
             {/* Glow di belakang frame */}
@@ -133,42 +110,51 @@ export default function AboutContent() {
             />
           </motion.div>
 
-          {/* Teks (kanan) + badge + tombol CV */}
+          {/* Teks (kanan) */}
           <motion.div variants={item} className="order-2">
-            <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs md:text-sm">Tersedia untuk remote & freelance</span>
+            <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-accent mb-6">about.</h1>
+
+            {/* Deskripsi profesional singkat */}
+            <div className="text-foreground/80 leading-relaxed">
+              <p>Saya Software Engineer yang bersemangat membangun produk digital yang andal dan terukur. Fokus utama saya ada pada pengembangan back-end dan optimasi performa aplikasi.</p>
             </div>
 
-            <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-tight">{PROFILE.name}</h2>
-            <p className="mt-1 text-foreground/70">{PROFILE.role}</p>
+            {/* Timeline */}
+            <div className="mt-10 space-y-8">
+              <div className="relative pl-5">
+                <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
+                <h3 className="text-sm font-bold text-foreground mb-2">Back-End & Architecture</h3>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  Fokus pada <strong>Laravel</strong> untuk aplikasi back-end. Berpengalaman merancang arsitektur REST API, autentikasi, queue & job processing, caching, hingga deployment yang rapi.
+                </p>
+              </div>
 
-            {/* Deskripsi profesional */}
-            <div className="mt-6 space-y-4 text-foreground/80 leading-relaxed">
-              <p>
-                Saya Software Engineer dengan fokus utama pada <strong>Laravel</strong> untuk aplikasi back-end yang andal dan terukur. Saya banyak mengerjakan proyek komersial berbasis Laravel: perancangan arsitektur REST API,
-                autentikasi/otorisasi, queue & job processing, caching, testing, hingga deployment yang rapi.
-              </p>
-              <p>
-                Di sisi produk, saya terbiasa membangun <strong>e-commerce</strong> (katalog, cart, checkout, promo, manajemen pesanan) serta integrasi <strong>payment gateway</strong> populer. Saya juga mengerjakan{" "}
-                <strong>landing page</strong> yang cepat, responsif, dan SEO-friendly—targetkan skor Lighthouse & Core Web Vitals yang solid.
-              </p>
-              <p>
-                Untuk front-end, saya nyaman dengan <strong>TypeScript/Next.js</strong> dan <strong>Tailwind CSS</strong>, menjaga aksesibilitas, performa, dan DX tim. Saya senang menulis kode bersih, dokumentasi ringkas, dan keputusan
-                teknis yang terukur dampaknya.
-              </p>
+              <div className="relative pl-5">
+                <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
+                <h3 className="text-sm font-bold text-foreground mb-2">E-commerce & Integration</h3>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  Terbiasa membangun sistem e-commerce kompleks (katalog, cart, checkout, manajemen pesanan) serta mengintegrasikan berbagai <strong>payment gateway</strong> populer di Indonesia.
+                </p>
+              </div>
+
+              <div className="relative pl-5">
+                <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
+                <h3 className="text-sm font-bold text-foreground mb-2">Front-End & Optimization</h3>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  Nyaman menggunakan <strong>TypeScript, Next.js, dan Tailwind CSS</strong> untuk membangun antarmuka yang cepat, responsif, dan menargetkan skor Lighthouse yang solid.
+                </p>
+              </div>
             </div>
 
             {/* Tombol Download CV */}
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <a
                 href={PROFILE.cv}
                 download
-                className="group inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm md:text-base font-medium shadow-sm border bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold shadow-sm border-2 border-foreground bg-accent text-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
                 aria-label="Unduh CV (PDF)"
               >
-                <Download className="h-4 w-4 transition-transform group-hover:scale-110" />
-                Unduh CV (PDF)
+                Unduh Resume
               </a>
             </div>
           </motion.div>
@@ -187,15 +173,11 @@ export default function AboutContent() {
             {/* Stats Cards (Left) */}
             <div className="md:col-span-4 flex flex-col gap-4">
               <div className="flex-1 rounded-2xl border bg-background/60 p-6 flex flex-col items-center justify-center text-center shadow-sm backdrop-blur">
-                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-accent">
-                  {ghStats ? ghStats.public_repos : "..."}
-                </span>
+                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-accent">{ghStats ? ghStats.public_repos : "..."}</span>
                 <span className="mt-3 text-xs font-bold text-foreground/60 uppercase tracking-widest">Public Repos</span>
               </div>
               <div className="flex-1 rounded-2xl border bg-background/60 p-6 flex flex-col items-center justify-center text-center shadow-sm backdrop-blur">
-                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-teal-500 to-accent">
-                  {ghStats ? ghStats.followers : "..."}
-                </span>
+                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-teal-500 to-accent">{ghStats ? ghStats.followers : "..."}</span>
                 <span className="mt-3 text-xs font-bold text-foreground/60 uppercase tracking-widest">Followers</span>
               </div>
             </div>
@@ -205,11 +187,7 @@ export default function AboutContent() {
               <span className="text-xs font-bold text-foreground/60 uppercase tracking-widest mb-6">Contributions (1 Tahun Terakhir)</span>
               <div className="w-full overflow-x-auto pb-4 flex justify-start md:justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                  src="https://ghchart.rshah.org/8b5cf6/Pid24" 
-                  alt="Pid24's Github chart" 
-                  className="min-w-[650px] w-full max-w-[800px] opacity-90 dark:invert dark:hue-rotate-180 mix-blend-multiply dark:mix-blend-screen"
-                />
+                <img src="https://ghchart.rshah.org/8b5cf6/Pid24" alt="Pid24's Github chart" className="min-w-[650px] w-full max-w-[800px] opacity-90 dark:invert dark:hue-rotate-180 mix-blend-multiply dark:mix-blend-screen" />
               </div>
             </div>
           </div>

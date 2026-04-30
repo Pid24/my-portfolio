@@ -88,10 +88,9 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-12 md:py-16">
         {/* Header */}
         <div className="mb-6 md:mb-8">
-          <h1 id="projects-heading" className="text-2xl md:text-3xl font-serif tracking-tight">
-            <span className="text-foreground">{pageTitle}</span>
+          <h1 id="projects-heading" className="text-5xl md:text-6xl font-serif tracking-tight text-accent">
+            projects.
           </h1>
-          <p className="mt-2 text-sm text-foreground/70">{pageSubtitle}</p>
         </div>
 
         {/* Controls: Search + Sort */}
