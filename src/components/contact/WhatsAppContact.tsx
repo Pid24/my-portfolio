@@ -1,112 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Smartphone, Clipboard, Check, QrCode, MessageSquare, ExternalLink } from "lucide-react";
-
-const PHONE = "6281381629551"; // ⬅️ GANTI: nomor WhatsApp kamu tanpa '+'
-
-// Chips
-const PROJECT_TYPES = ["E-commerce", "Landing Page", "Company Profile", "Marketplace", "Lainnya"] as const;
-const BUDGETS = ["500rb–1jt", "1–3jt", "3–5jt", "5–10jt", "10jt++", "Diskusikan dulu"] as const;
-const TIMELINES = ["Secepatnya", "1–2 minggu", "1 bulan", "Diskusikan dulu"] as const;
-
-// ===== Helpers & Types =====
-type ProjectType = (typeof PROJECT_TYPES)[number];
-type BudgetType = (typeof BUDGETS)[number];
-type TimelineType = (typeof TIMELINES)[number];
-
-function typedIncludes<T extends readonly string[]>(arr: T, v: string | null): v is T[number] {
-  return typeof v === "string" && (arr as readonly string[]).includes(v);
-}
-
-function buildMessage(opts: { name?: string; projectType?: string; budget?: string; timeline?: string; note?: string; includeRef?: boolean; refUrl?: string }) {
-  const { name, projectType, budget, timeline, note, includeRef, refUrl } = opts;
-  const line1 = `Halo Rofid${name ? `, saya ${name}` : ""}.`;
-  const line2 = `Saya butuh ${projectType || "project"}` + `${budget ? ` (budget ${budget}` : ""}` + `${timeline ? `${budget ? ", " : " ("}timeline ${timeline}` : ""}` + `${budget || timeline ? ")" : ""}.`;
-  const line3 = "Detail singkat:";
-  const line4 = note?.trim() || "-";
-  const line5 = includeRef && refUrl ? `— Dikirim dari ${refUrl}` : "";
-  return [line1, line2, "", line3, line4, line5].filter(Boolean).join("\n");
-}
-
-function waMeUrl(text: string) {
-  return `https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`;
-}
-
-function buildWhatsAppUrl(text: string) {
-  const encoded = encodeURIComponent(text.trim());
-  if (typeof window !== "undefined") {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isMobile) return `whatsapp://send?phone=${PHONE}&text=${encoded}`;
-  }
-  return `https://web.whatsapp.com/send?phone=${PHONE}&text=${encoded}`;
-}
-
-function buildWhatsAppWebUrl(text: string) {
-  return `https://web.whatsapp.com/send?phone=${PHONE}&text=${encodeURIComponent(text.trim())}`;
-}
+import React from "react";
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import { Phone, Github, Linkedin, Mail } from "lucide-react";
 
 export default function WhatsAppContact() {
   const reduce = useReducedMotion();
-
-  // Prefill dari query + ref URL
-  const [refUrl, setRefUrl] = useState<string | undefined>(undefined);
-  const [projectType, setProjectType] = useState<ProjectType | undefined>();
-  const [budget, setBudget] = useState<BudgetType | undefined>();
-  const [timeline, setTimeline] = useState<TimelineType | undefined>();
-
-  useEffect(() => {
-    try {
-      const sp = new URLSearchParams(window.location.search);
-      const type = sp.get("type");
-      const b = sp.get("budget");
-      const t = sp.get("timeline");
-      if (typedIncludes(PROJECT_TYPES, type)) setProjectType(type);
-      if (typedIncludes(BUDGETS, b)) setBudget(b);
-      if (typedIncludes(TIMELINES, t)) setTimeline(t);
-      setRefUrl(window.location.origin + window.location.pathname);
-    } catch {
-      // no-op
-    }
-  }, []);
-
-  // Form state
-  const [name, setName] = useState("");
-  const [note, setNote] = useState("");
-  const [includeRef, setIncludeRef] = useState(false);
-
-  // Actions state
-  const [copyOk, setCopyOk] = useState(false);
-  const [showQR, setShowQR] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const message = useMemo(() => buildMessage({ name, projectType, budget, timeline, note, includeRef, refUrl }), [name, projectType, budget, timeline, note, includeRef, refUrl]);
-  const url = useMemo(() => buildWhatsAppUrl(message), [message]);
-  const urlWaMe = useMemo(() => waMeUrl(message), [message]);
-  const urlWebQuick = useMemo(() => buildWhatsAppWebUrl("Halo Rofid, saya ingin berdiskusi."), []);
-
-  async function handleCopy() {
-    try {
-      await navigator.clipboard.writeText("+" + PHONE);
-      setCopyOk(true);
-      setTimeout(() => setCopyOk(false), 1400);
-    } catch {
-      // no-op
-    }
-  }
-
-  function handleOpen() {
-    setSubmitting(true);
-    const a = document.createElement("a");
-    a.href = url;
-    a.rel = "noreferrer";
-    a.target = "_self";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => setSubmitting(false), 900);
-  }
 
   // Animasi container
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } } as const;
@@ -142,204 +42,60 @@ export default function WhatsAppContact() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-16 md:py-24">
         {/* Header */}
         <motion.div initial={reduce ? undefined : { opacity: 0, y: 8 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ type: "spring", damping: 20 }} className="mb-10 md:mb-14">
-          <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-accent">
-            contact.
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-accent">contact.</h1>
         </motion.div>
 
         {/* Grid */}
         <motion.div variants={container} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-          {/* Kiri: Info cepat */}
-          <motion.aside variants={item} className="space-y-6">
-            <div className="rounded-2xl border p-4 md:p-5 bg-background/60">
-              <div className="flex items-center gap-3">
-                <Smartphone className="h-5 w-5" />
-                <div>
-                  <p className="text-sm text-foreground/60">Nomor WhatsApp</p>
-                  <p className="font-medium tracking-tight">+{PHONE}</p>
-                </div>
-              </div>
+          {/* Kiri: Gambar estetik editorial */}
+          <motion.div variants={item} className="relative aspect-[4/3] w-full overflow-hidden bg-muted/20 p-2 border border-foreground/10">
+            <div className="relative w-full h-full overflow-hidden">
+              <Image src="/images/contact-bg.png" alt="Contact representation" fill className="object-cover transition-transform duration-700 hover:scale-105" />
+            </div>
+            {/* asset garis di ujung */}
+            <div className="absolute -bottom-4 -right-4 w-12 h-8">
+              <Image src="/images/asset-1.png" alt="" fill className="object-contain dark:invert" />
+            </div>
+          </motion.div>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                <button onClick={handleCopy} className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors">
-                  {copyOk ? <Check className="h-4 w-4" /> : <Clipboard className="h-4 w-4" />}
-                  {copyOk ? "Tersalin" : "Salin nomor"}
-                </button>
-
-                <a href={urlWebQuick} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors">
-                  <ExternalLink className="h-4 w-4" />
-                  Buka WhatsApp Web
-                </a>
-
-                <button onClick={() => setShowQR(true)} className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors">
-                  <QrCode className="h-4 w-4" />
-                  Tampilkan QR
-                </button>
-              </div>
+          {/* Kanan: Teks & Kontak */}
+          <motion.div variants={item} className="flex flex-col justify-center space-y-8 py-2 md:py-6">
+            <div className="text-foreground/80 leading-relaxed text-base md:text-lg">
+              <p>Mari bangun sesuatu yang hebat bersama. Tertarik untuk mendiskusikan proyek, kolaborasi, atau sekadar menyapa? Jangan ragu untuk menghubungi saya.</p>
             </div>
 
-            <ul className="text-sm text-foreground/70 space-y-2">
-              <li>
-                Zona waktu: <strong>WIB (UTC+7)</strong>
-              </li>
-              <li>Respons: biasanya &lt; 24 jam kerja</li>
-            </ul>
-          </motion.aside>
+            <div className="space-y-4 font-medium text-base">
+              <a href="mailto:rnasifannafie@gmail.com" className="group inline-flex items-center gap-4 hover:text-accent transition-colors w-fit">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 group-hover:border-accent group-hover:bg-accent/10 transition-colors">
+                  <Mail className="h-4 w-4" />
+                </span>
+                Email
+              </a>
 
-          {/* Kanan: Builder WA */}
-          <motion.section variants={item} className="rounded-2xl border p-4 md:p-6 bg-background/60">
-            <div className="grid gap-4">
-              {/* Nama */}
-              <div>
-                <label htmlFor="name" className="text-sm font-medium">
-                  Nama
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Nama lengkap"
-                  value={name}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                  className="mt-2 w-full rounded-xl border bg-transparent px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
-                />
-              </div>
+              <a href="https://wa.me/6281381629551" target="_blank" rel="noreferrer" className="group flex items-center gap-4 hover:text-accent transition-colors w-fit">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 group-hover:border-accent group-hover:bg-accent/10 transition-colors">
+                  <Phone className="h-4 w-4" />
+                </span>
+                WhatsApp
+              </a>
 
-              {/* Jenis proyek */}
-              <div>
-                <p className="text-sm font-medium">Jenis proyek</p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {PROJECT_TYPES.map((t) => {
-                    const active = projectType === t;
-                    return (
-                      <button
-                        key={t}
-                        onClick={() => setProjectType(active ? undefined : t)}
-                        className={["rounded-xl border px-3 py-1.5 text-sm transition-all", active ? "bg-indigo-500/10 border-indigo-500/30 text-foreground" : "hover:bg-foreground/5"].join(" ")}
-                      >
-                        {t}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              <a href="https://github.com/Pid24" target="_blank" rel="noreferrer" className="group flex items-center gap-4 hover:text-accent transition-colors w-fit">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 group-hover:border-accent group-hover:bg-accent/10 transition-colors">
+                  <Github className="h-4 w-4" />
+                </span>
+                GitHub
+              </a>
 
-              {/* Budget */}
-              <div>
-                <p className="text-sm font-medium">Estimasi budget</p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {BUDGETS.map((t) => {
-                    const active = budget === t;
-                    return (
-                      <button
-                        key={t}
-                        onClick={() => setBudget(active ? undefined : t)}
-                        className={["rounded-xl border px-3 py-1.5 text-sm transition-all", active ? "bg-cyan-500/10 border-cyan-500/30 text-foreground" : "hover:bg-foreground/5"].join(" ")}
-                      >
-                        {t}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Timeline */}
-              <div>
-                <p className="text-sm font-medium">Timeline</p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {TIMELINES.map((t) => {
-                    const active = timeline === t;
-                    return (
-                      <button
-                        key={t}
-                        onClick={() => setTimeline(active ? undefined : t)}
-                        className={["rounded-xl border px-3 py-1.5 text-sm transition-all", active ? "bg-violet-500/10 border-violet-500/30 text-foreground" : "hover:bg-foreground/5"].join(" ")}
-                      >
-                        {t}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Pesan */}
-              <div>
-                <label htmlFor="note" className="text-sm font-medium">
-                  Pesan
-                </label>
-                <textarea
-                  id="note"
-                  rows={6}
-                  placeholder="Ceritakan kebutuhanmu singkat: scope, referensi, deadline, dll."
-                  value={note}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
-                  className="mt-2 w-full rounded-xl border bg-transparent px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
-                />
-              </div>
-
-              {/* Opsi tambahan */}
-              <div className="flex flex-wrap items-center gap-4">
-                <label className="inline-flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="h-4 w-4 rounded border" checked={includeRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIncludeRef(e.target.checked)} />
-                  Sertakan link halaman ini
-                </label>
-              </div>
-
-              {/* Preview */}
-              <div className="rounded-xl border bg-foreground/[0.03] px-3 py-3 text-sm text-foreground/80 whitespace-pre-wrap">{message}</div>
-
-              {/* Actions */}
-              <div className="mt-2 flex flex-wrap items-center gap-3">
-                <button
-                  disabled={submitting}
-                  onClick={handleOpen}
-                  className={[
-                    "group inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-medium shadow-sm border",
-                    "bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all",
-                    submitting ? "opacity-80 cursor-not-allowed" : "",
-                  ].join(" ")}
-                  aria-live="polite"
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  {submitting ? "Membuka WhatsApp…" : "Chat di WhatsApp"}
-                </button>
-
-                <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm hover:bg-foreground/5 transition-colors">
-                  <ExternalLink className="h-4 w-4" />
-                  Buka di tab baru
-                </a>
-              </div>
+              <a href="https://linkedin.com/in/rofid" target="_blank" rel="noreferrer" className="group flex items-center gap-4 hover:text-accent transition-colors w-fit">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 group-hover:border-accent group-hover:bg-accent/10 transition-colors">
+                  <Linkedin className="h-4 w-4" />
+                </span>
+                LinkedIn
+              </a>
             </div>
-          </motion.section>
+          </motion.div>
         </motion.div>
       </div>
-
-      {/* Modal QR */}
-      <AnimatePresence>
-        {showQR && (
-          <motion.div className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowQR(false)}>
-            <motion.div
-              className="relative w-full max-w-sm rounded-2xl border bg-background p-6"
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h3 className="text-base font-semibold mb-2">Scan untuk chat</h3>
-              <p className="text-sm text-foreground/70 mb-4">Pindai QR di bawah untuk membuka WhatsApp.</p>
-              <div className="grid place-items-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(urlWaMe)}`} alt="QR WhatsApp" className="rounded-xl border" width={220} height={220} />
-              </div>
-              <div className="mt-5 flex justify-end">
-                <button onClick={() => setShowQR(false)} className="inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors">
-                  Tutup
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
