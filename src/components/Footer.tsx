@@ -3,17 +3,7 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Instagram, Twitter, Github, Linkedin, Facebook, ArrowUp } from "lucide-react";
-
-type CSSVars = CSSProperties & { ["--brand"]?: string };
-
-const socials = [
-  { label: "Instagram", href: "https://www.instagram.com/piddddz/", Icon: Instagram, hex: "#E4405F" },
-  { label: "Twitter", href: "https://x.com/rfdzna", Icon: Twitter, hex: "#1DA1F2" },
-  { label: "GitHub", href: "https://github.com/Pid24", Icon: Github, hex: "#181717" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/rofid/", Icon: Linkedin, hex: "#0A66C2" },
-  { label: "Facebook", href: "https://www.facebook.com/rofidnasif.annafie.14/", Icon: Facebook, hex: "#1877F2" },
-] as const;
+import { ArrowUp } from "lucide-react";
 
 export default function Footer({ year }: { year: number }) {
   const reduce = useReducedMotion();
@@ -68,37 +58,11 @@ export default function Footer({ year }: { year: number }) {
           Footer
         </h2>
 
-        {/* brand + socials */}
-        <div className="grid gap-10 md:grid-cols-2 md:gap-12 items-start">
+        {/* brand */}
+        <div className="flex flex-col items-center text-center">
           <div>
             <p className="text-lg font-serif tracking-tight text-foreground">Rofid Nasif Annafie</p>
-            <p className="mt-2 text-sm text-foreground/70">Laravel-first engineer. E-commerce, landing page, & payment gateway dengan performa dan UX yang rapi.</p>
-          </div>
-
-          <div className="md:justify-self-end">
-            <p className="text-sm font-medium text-foreground/70 mb-3">Find me</p>
-            <ul className="flex flex-wrap items-center gap-2">
-              {socials.map(({ label, href, Icon, hex }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    style={{ ["--brand"]: hex } as CSSVars}
-                    className={[
-                      "group inline-grid place-items-center w-10 h-10 rounded-xl border",
-                      "text-foreground/60 transition-all",
-                      "hover:text-[var(--brand)] hover:border-[var(--brand)] hover:bg-[var(--brand)]/10",
-                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50",
-                      "hover:translate-y-[-1px] hover:shadow-sm",
-                    ].join(" ")}
-                  >
-                    <Icon className="h-5 w-5" strokeWidth={2} />
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-2 text-sm text-foreground/70">Building reliable digital products, from architecture to pixel-perfect interfaces.</p>
           </div>
         </div>
 
