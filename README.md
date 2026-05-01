@@ -1,177 +1,96 @@
-Rofid Nasif Annafie — Portfolio
+# Rofid Nasif Annafie — Portfolio
 
-Personal website & portfolio dibangun dengan Next.js (App Router), TypeScript, Tailwind CSS, dan Framer Motion. Fokus pada performa, animasi halus, serta kemudahan deploy ke shared hosting melalui static export.
+A professional, high-performance personal portfolio built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**. 
 
-🌐 Live Demo: rofid-dev.my.id
+This portfolio is designed with an **Editorial Minimalist** aesthetic, featuring a warm cream and navy color palette, elegant serif typography (`DM Serif Display`), and subtle, refined animations.
 
-✨ Fitur Utama
+🌐 **Live Demo:** [rofid-dev.my.id](https://rofid-dev.my.id)
 
-Hero Section
-Modern dengan marquee tech stack (ikon berubah warna saat hover).
+---
 
-Navigasi
-Navbar animasi (underline & pill) + theme toggle (light/dark).
+## ✨ Design & Architecture
 
-Projects
+- **Editorial Aesthetic:** Clean, magazine-like layouts emphasizing typography, whitespace, and high-quality visuals over heavy UI components.
+- **Typography:** `DM Serif Display` for elegant, lowercase headings with a distinct lime accent (`#C8E63F`), paired with `Inter` for highly readable body text.
+- **Performance First:** Next.js static export configured out of the box, ensuring blazing-fast load times and easy deployment to shared hosting (cPanel/hPanel).
+- **Fluid Animations:** Powered by Framer Motion for smooth page transitions, staggered layout reveals, and subtle micro-interactions.
 
-Featured Projects di beranda
+## 🚀 Key Features
 
-Halaman /projects dengan search, filter by stack, sort, dan load more
+- **Dynamic Hero Section:** Minimalist introduction with interactive, rotating tech-stack marquee.
+- **Projects Showcase:** Clean grid layout for filtering and sorting projects, complete with detailed case study pages (`/projects/[slug]`).
+- **Editorial About Page:** Timeline-style professional history and live GitHub coding activity stats.
+- **Elegant Contact Page:** Minimalist, editorial contact interface with sleek social integrations.
+- **Seamless Dark/Light Mode:** Carefully curated tokens for both a warm cream "light" mode and a deep navy "dark" mode.
 
-About
-Slideshow foto & copy profesional.
+---
 
-Contact
-WhatsApp integration (otomatis isi pesan).
+## 🛠️ Tech Stack
 
-Splash Screens
+- **Framework:** Next.js 15 (App Router, Static Export)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Icons:** Lucide React & Simple Icons
 
-BootSplash (overlay saat refresh)
+---
 
-PageTransition (transisi antar halaman)
+## 📦 Getting Started (Local Development)
 
-SEO Dasar
-Next Metadata (OpenGraph & Twitter card).
+1. **Clone & Install Dependencies**
+   ```bash
+   git clone https://github.com/Pid24/my-portfolio.git
+   cd my-portfolio
+   npm install
+   ```
 
-Static Export
-Siap upload ke hPanel/cPanel tanpa Node server.
+2. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-🛠️ Tech Stack
+3. **Production Build**
+   ```bash
+   npm run build
+   ```
+   This will generate a static HTML/CSS/JS export in the `out/` directory, ready for deployment.
 
-Next.js 15
- (App Router, output: "export")
+---
 
-TypeScript
+## 🚀 Deployment (Shared Hosting / cPanel)
 
-Tailwind CSS
+Because this project uses Next.js `output: "export"`, deploying to shared hosting is incredibly simple:
 
-Framer Motion
+1. Run `npm run build` locally.
+2. Zip the contents of the generated `out/` directory.
+3. Upload the `.zip` file to your server's `public_html` directory (or specific domain folder) via File Manager.
+4. Extract the `.zip` file.
+5. Your site is now live! ✅
 
-next-themes (theme toggle)
+---
 
-lucide-react (ikon)
+## ✍️ Content Management
 
-simple-icons (ikon tech stack)
+To add or modify projects, simply edit the data array in `src/data/projects.ts` and drop your images into the `public/images/` directory.
 
-📁 Struktur Direktori (ringkas)
-src/
-  app/
-    (routes)        -> page.tsx per halaman (/, /about, /projects, /contact)
-    layout.tsx      -> Navbar, BootSplash, PageTransition, Footer, ThemeProvider
-    globals.css
-  components/
-    Navbar.tsx
-    Footer.tsx
-    ThemeProvider.tsx
-    ThemeToggle.tsx
-    HeroSection.tsx
-    splash/
-      BootSplash.tsx
-      PageTransition.tsx
-    home/
-      ProjectsHighlight.tsx
-    projects/
-      ProjectsSection.tsx
-    contact/
-      WhatsAppContact.tsx
-  data/
-    projects.ts     -> sumber data proyek
-public/
-  images/           -> cover project, og image, foto, favicon
-
-🚀 Jalankan Lokal
-# 1) Install dependencies
-npm install
-
-# 2) Development mode
-npm run dev
-
-# 3) Production build (static export otomatis ke folder `out/`)
-npm run build
-
-
-⚡ Catatan: sudah dikonfigurasi output: "export" via next.config.ts. Hasil build siap upload ke shared hosting.
-
-📦 Deploy ke Shared Hosting (hPanel / cPanel)
-
-Jalankan npm run build → output ada di folder out/
-
-Zip folder out/ → upload ke public_html (atau sub-folder domain)
-
-Extract di server → pastikan file index.html, _next/*, images/* tersedia
-
-Selesai ✅
-
-Update situs = build ulang → upload ulang isi folder out/ (overwrite).
-
-✍️ Tambah / Ubah Project
-
-Simpan cover di public/images/ (PNG/JPG).
-
-Tambah/ubah item di src/data/projects.ts:
-
+```typescript
 export const PROJECTS = [
   {
-    slug: "setu-umkm",
-    title: "Setu UMKM",
-    excerpt: "Custom e-commerce Laravel dengan Midtrans, voucher & ongkir.",
-    cover: "/images/setu-umkm.png",
-    stack: ["Laravel", "PHP", "Tailwind", "MySQL"],
+    slug: "project-name",
+    title: "Project Name",
+    excerpt: "Short description for the project.",
+    cover: "/images/project-cover.png",
+    stack: ["Next.js", "Tailwind", "Laravel"],
     category: "E-commerce",
-    period: "2023",
-    featured: true,
+    period: "2024",
   },
   // ...
 ];
+```
 
+---
 
-Jalankan npm run dev untuk cek → npm run build → upload out/.
+## 📄 License
 
-🔄 Git Workflow
-
-.gitignore sudah mengecualikan:
-
-node_modules/
-
-.next/
-
-out/
-
-.env*
-
-Workflow standar:
-
-git add -A
-git commit -m "update: UI/UX & content"
-git push
-
-⚙️ Konfigurasi SEO
-
-Di app/layout.tsx:
-
-metadataBase, openGraph, twitter
-
-Gambar default OG: public/images/og-default.png
-
-👉 robots.txt & sitemap belum disertakan agar static export lebih mudah. Bisa ditambahkan kemudian bila perlu.
-
-🧩 Scripts
-{
-  "dev": "next dev",
-  "build": "next build --turbopack",
-  "start": "next start"
-}
-
-✅ Roadmap Singkat
-
- Project detail page per slug
-
- Animasi tambahan di Projects (hover 3D / parallax)
-
- Analytics (Plausible / GA4)
-
- Peningkatan aksesibilitas (a11y) & Lighthouse score
-
-📄 Lisensi
-
-MIT © 2025 Rofid Nasif Annafie
+MIT © 2026 Rofid Nasif Annafie
