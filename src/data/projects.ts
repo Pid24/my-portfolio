@@ -14,7 +14,7 @@ export type Project = {
   excerpt: string;
   cover: string; // contoh: "/projects/toko-x.webp"
   stack: string[]; // ["Laravel","Tailwind","MySQL"]
-  category: "E-commerce" | "Landing Page" | "Payment Gateway" | "Laravel" | "Booking" | "Streaming" | "AI Assistant";
+  category: "E-commerce" | "Landing Page" | "Payment Gateway" | "Laravel" | "Booking" | "Streaming" | "AI Assistant" | "E-Learning";
   period?: string;
   links?: { live?: string; github?: string; youtube?: string };
   featured?: boolean; // dipakai untuk highlight di Home
@@ -80,6 +80,32 @@ export const PROJECTS: Project[] = [
         "Saya bertanggung jawab di sisi frontend, khususnya pada integrasi data melalui API fetching dari backend Laravel. Menggunakan Next.js untuk rendering yang cepat dan SEO-optimal, serta Tailwind CSS untuk styling yang konsisten. Setiap halaman di-fetch dari REST API Laravel sehingga konten bisa diperbarui langsung melalui admin panel tanpa perlu deploy ulang frontend.",
       features: [],
       gallery: ["/images/pkumi-1.png", "/images/pkumi-2.png"],
+    },
+  },
+  {
+    slug: "cbt-toafl",
+    title: "CBT TOAFL",
+    excerpt: "Platform ujian online untuk TOAFL dan TOEFL dengan sistem berbasis sesi, pembayaran per tes, randomisasi soal, auto-save, dan pengaturan hasil per sesi.",
+    cover: "/images/cbt.png",
+    stack: ["Next.js", "Laravel", "MySQL"],
+    category: "E-Learning",
+    period: "2026",
+    links: { live: "https://cat.miftadigital.cloud/" },
+    featured: true,
+    caseStudy: {
+      problem:
+        "Mengembangkan platform ujian online (CBT) yang reliabel dengan fitur lengkap seperti integrasi pembayaran per tes, sistem berbasis sesi, randomisasi soal, dan auto-save. Tantangan utamanya adalah menjaga reliabilitas dan integritas ujian melalui fitur anti-cheat (fullscreen enforcement, tab switch detection, disable copy-paste), serta sinkronisasi state yang aman antara client (Next.js) dan backend (Laravel) selama ujian berlangsung secara real-time.",
+      solution:
+        "Sistem dibangun menggunakan Next.js 14 untuk frontend dan Laravel untuk backend REST API. Frontend menerapkan arsitektur state management yang solid dengan TanStack Query untuk handling data dashboard, profil, dan history. Ujian berjalan dengan sistem heartbeat dan auto-save ke backend, didukung timer berbasis remaining_seconds dari server. Keamanan ujian (anti-cheat) diimplementasikan di sisi client-side dengan mendeteksi visibilitychange, melarang konteks menu, dan membatasi navigasi. Sistem autentikasi dikawal dari server-side middleware.",
+      features: [
+        "Auth Flow Lengkap dengan Role Check & Account Status",
+        "Payment Proof Upload & History Real API",
+        "Exam Engine Terintegrasi (Auto-save, randomisasi soal, navigasi, timer)",
+        "Anti-Cheat Features (Fullscreen, Tab switch detection, Disable Right Click)",
+        "Audio Player dengan Play Count Limit",
+        "Server-Side Middleware & Global UI States (Loading, Error Boundary)",
+      ],
+      gallery: ["/images/cbt-1.png", "/images/cbt-2.png", "/images/cbt-3.png", "/images/cbt-4.png", "/images/cbt-5.png"],
     },
   },
 ];
