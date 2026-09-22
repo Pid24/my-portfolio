@@ -7,9 +7,9 @@ import { Download } from "lucide-react";
 
 const PROFILE = {
   name: "Rofid Nasif Annafie",
-  role: "Software Engineer",
-  photos: ["/images/pid.jpg", "/images/pid-2.jpg", "/images/pid-3.jpg"], // siapkan minimal 2 foto
-  cv: "/docs/pid-cv.pdf", // letakkan file PDF di /public/docs
+  role: "Quality Assurance Engineer",
+  photos: ["/images/pid.jpg", "/images/pid-2.jpg", "/images/pid-3.jpg"],
+  cv: "/docs/pid-cv.pdf",
 } as const;
 
 export default function AboutContent() {
@@ -114,39 +114,46 @@ export default function AboutContent() {
           <motion.div variants={item} className="order-2">
             <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-accent mb-6">about.</h1>
 
-            {/* Deskripsi profesional singkat */}
             <div className="text-foreground/80 leading-relaxed">
-              <p>Saya Software Engineer yang bersemangat membangun produk digital yang andal dan terukur. Fokus utama saya ada pada pengembangan back-end dan optimasi performa aplikasi.</p>
+              <p>
+                Saya <strong>Quality Assurance Engineer</strong> dengan latar belakang pengembangan web yang kuat. Transisi ke QA memberi saya perspektif unik — saya memahami cara kerja sistem dari dalam, sehingga lebih efektif dalam merancang test case yang tajam dan menemukan bug yang sering terlewat.
+              </p>
             </div>
 
-            {/* Timeline */}
             <div className="mt-10 space-y-8">
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">Back-End & Architecture</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">Test Case Design & Execution</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Fokus pada <strong>Laravel</strong> untuk aplikasi back-end. Berpengalaman merancang arsitektur REST API, autentikasi, queue & job processing, caching, hingga deployment yang rapi.
+                  Terampil merancang test case yang komprehensif menggunakan teknik <strong>Black-Box Testing</strong>, Equivalence Partitioning, dan Boundary Value Analysis. Pengujian mencakup functional, UI/UX, dan regression testing secara sistematis dan terdokumentasi.
                 </p>
               </div>
 
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">E-commerce & Integration</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">Bug Tracking & Reporting</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Terbiasa membangun sistem e-commerce kompleks (katalog, cart, checkout, manajemen pesanan) serta mengintegrasikan berbagai <strong>payment gateway</strong> populer di Indonesia.
+                  Berpengalaman mendokumentasikan bug secara terstruktur — mencakup langkah reproduksi, expected vs actual result, severity, prioritas, dan screenshot. Laporan yang jelas mempercepat siklus perbaikan oleh tim developer.
                 </p>
               </div>
 
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">Front-End & Optimization</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">API Testing & Automation</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Nyaman menggunakan <strong>TypeScript, Next.js, dan Tailwind CSS</strong> untuk membangun antarmuka yang cepat, responsif, dan menargetkan skor Lighthouse yang solid.
+                  Menggunakan <strong>Postman</strong> dengan test scripts berbasis JavaScript untuk memvalidasi REST API — status code assertions, response time threshold, JSON schema validation, dan negative testing. Collection siap dijalankan via Newman untuk integrasi CI pipeline.
+                </p>
+              </div>
+
+              <div className="relative pl-5">
+                <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
+                <h3 className="text-sm font-bold text-foreground mb-2">SDLC & Logical Precision</h3>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  Memahami seluruh siklus pengembangan perangkat lunak (<strong>SDLC</strong>) dengan pendekatan analitis yang terstruktur. Latar belakang developer memberikan keunggulan dalam memahami root cause bug dan berkomunikasi efektif dengan tim engineering.
                 </p>
               </div>
             </div>
 
-            {/* Tombol Download CV */}
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <a
                 href={PROFILE.cv}

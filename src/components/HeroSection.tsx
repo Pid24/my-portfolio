@@ -2,33 +2,34 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { siPhp, siJavascript, siPython, siLaravel, siPostgresql, siMysql, siTailwindcss, siBootstrap, siTypescript, siNodedotjs } from "simple-icons/icons";
 
-type SimpleIcon = { title: string; slug: string; hex: string; path: string };
-type CSSVars = React.CSSProperties & { ["--brand"]?: string; ["--speed"]?: string };
+type CSSVars = React.CSSProperties & { ["--speed"]?: string };
 
 const PROFILE = {
   name: "Rofid Nasif Annafie",
-  role: "Software Engineer",
-  phrases: ["Building modern & responsive websites", "Clean code, blazing-fast performance", "UI/UX that's a joy to use"],
+  role: "Quality Assurance Engineer",
+  phrases: [
+    "Ensuring software quality through precision testing",
+    "Manual Testing · API Automation · Bug Reporting",
+    "Finding bugs before your users do",
+  ],
   photoUrl: "/images/pid.jpg",
   photos: ["/images/pid.jpg"],
   links: { github: "https://github.com/Pid24", linkedin: "https://www.linkedin.com/in/rofid/", cv: "/docs/pid-cv.pdf", contact: "#contact" },
 } as const;
 
-const TECHS: ReadonlyArray<{ icon: SimpleIcon; href: string }> = [
-  { icon: siPhp as unknown as SimpleIcon, href: "https://www.php.net/" },
-  { icon: siNodedotjs as unknown as SimpleIcon, href: "https://nodejs.org/" },
-  { icon: siJavascript as unknown as SimpleIcon, href: "https://developer.mozilla.org/docs/Web/JavaScript" },
-  { icon: siTypescript as unknown as SimpleIcon, href: "https://www.typescriptlang.org/" },
-  { icon: siPython as unknown as SimpleIcon, href: "https://www.python.org/" },
-  { icon: siLaravel as unknown as SimpleIcon, href: "https://laravel.com/" },
-  { icon: siPostgresql as unknown as SimpleIcon, href: "https://www.postgresql.org/" },
-  { icon: siMysql as unknown as SimpleIcon, href: "https://www.mysql.com/" },
-  { icon: siTailwindcss as unknown as SimpleIcon, href: "https://tailwindcss.com/" },
-  { icon: siBootstrap as unknown as SimpleIcon, href: "https://getbootstrap.com/" },
+const QA_TOOLS: ReadonlyArray<string> = [
+  "Postman",
+  "Manual Testing",
+  "API Testing",
+  "Black-Box Testing",
+  "Bug Reporting",
+  "Test Cases",
+  "GitHub",
+  "JavaScript",
+  "SDLC",
+  "Regression Testing",
 ];
 
 function hashString(s: string) {
@@ -123,8 +124,8 @@ export function HeroSection() {
             </motion.div>
 
             <motion.div variants={itemUp} className="mt-7 w-full">
-              <p className="text-xs font-medium text-foreground/70 mb-2">Tech stack</p>
-              <TechMarquee items={TECHS} />
+              <p className="text-xs font-medium text-foreground/70 mb-2">QA Ecosystem</p>
+              <QaMarquee items={QA_TOOLS} />
             </motion.div>
           </div>
         </motion.section>
@@ -194,8 +195,8 @@ export function HeroSection() {
   );
 }
 
-/* ========= Tech Marquee ========= */
-function TechMarquee({ items, speed = 22 }: { items: ReadonlyArray<{ icon: SimpleIcon; href: string }>; speed?: number }) {
+/* ========= QA Tools Marquee ========= */
+function QaMarquee({ items, speed = 28 }: { items: ReadonlyArray<string>; speed?: number }) {
   const reduce = useReducedMotion();
   const trackStyle: CSSVars | undefined = reduce ? undefined : { ["--speed"]: `${speed}s` };
 
@@ -217,38 +218,23 @@ function TechMarquee({ items, speed = 22 }: { items: ReadonlyArray<{ icon: Simpl
           if (!reduce) (e.currentTarget as HTMLDivElement).style.animationPlayState = "running";
         }}
       >
-        {[...items, ...items].map((t, i) => {
-          const brandStyle: CSSVars = { ["--brand"]: `#${t.icon.hex}` };
-          return (
-            <a
-              key={`${t.icon.slug}-${i}`}
-              href={t.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t.icon.title}
-              style={brandStyle}
-              className="group inline-grid place-items-center w-10 h-10 rounded-lg border bg-background text-foreground/60 transition-all hover:text-[var(--brand)] hover:border-[var(--brand)] hover:bg-[var(--brand)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/50"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-hidden="true" className="transition-colors">
-                <path d={t.icon.path} fill="currentColor" />
-              </svg>
-              <span className="sr-only">{t.icon.title}</span>
-            </a>
-          );
-        })}
+        {[...items, ...items].map((label, i) => (
+          <span
+            key={`${label}-${i}`}
+            className="inline-flex items-center h-10 rounded-lg border bg-background px-3 text-xs font-medium text-foreground/70 whitespace-nowrap select-none"
+          >
+            {label}
+          </span>
+        ))}
       </div>
 
       <style jsx global>{`
         @keyframes _marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
         .marquee {
-          animation: _marquee var(--speed, 22s) linear infinite;
+          animation: _marquee var(--speed, 28s) linear infinite;
           will-change: transform;
         }
       `}</style>

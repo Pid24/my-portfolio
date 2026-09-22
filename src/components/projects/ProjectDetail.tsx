@@ -21,8 +21,8 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
   const reduce = useReducedMotion();
   const cs = p.caseStudy;
 
-  // gallery state — combine cover + extra gallery images
-  const galleryImages = [p.cover, ...(cs?.gallery ?? [])];
+  // gallery state — combine cover + extra gallery images (exclude empty cover)
+  const galleryImages = [...(p.cover ? [p.cover] : []), ...(cs?.gallery ?? [])];
   const [galleryIdx, setGalleryIdx] = useState(0);
 
   // animation variants
@@ -82,7 +82,13 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         {/* ── hero cover ── */}
         <motion.div variants={item} className="relative overflow-hidden rounded-2xl border shadow-lg">
           <div className="relative aspect-[21/9] w-full">
-            <Image src={p.cover} alt={p.title} fill priority sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
+            {p.cover ? (
+              <Image src={p.cover} alt={p.title} fill priority sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-accent/20 via-background to-foreground/5">
+                <span className="text-4xl font-black text-foreground/10 uppercase tracking-widest">{p.category}</span>
+              </div>
+            )}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
           </div>
 

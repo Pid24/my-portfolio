@@ -42,17 +42,19 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
 
-    // buat indexed array agar bisa pakai index sebagai tiebreaker
     const indexed = initialProjects.map((p, i) => ({ p, i }));
 
     const res = indexed.filter(({ p }) => {
       return q.length === 0 || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q);
     });
 
-    // sorting
     if (sortMode === "recent") {
-      // urutkan berdasarkan tahun (terbaru), tiebreaker: index terbesar = ditambahkan paling akhir = paling baru
-      res.sort((a, b) => yearOf(b.p.period) - yearOf(a.p.period) || b.i - a.i);
+      // featured projects always first, then by year desc, then by insertion order
+      res.sort((a, b) => {
+        const featuredDiff = (b.p.featured ? 1 : 0) - (a.p.featured ? 1 : 0);
+        if (featuredDiff !== 0) return featuredDiff;
+        return yearOf(b.p.period) - yearOf(a.p.period) || b.i - a.i;
+      });
     } else {
       res.sort((a, b) => a.p.title.localeCompare(b.p.title));
     }
@@ -131,7 +133,13 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
                     <article className="group relative h-full overflow-hidden rounded-2xl border bg-background/60">
                       {/* cover */}
                       <Link href={`/projects/${p.slug}`} className="block relative aspect-[16/10] overflow-hidden">
-                        <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={i < 2} />
+                        {p.cover ? (
+                          <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" priority={i < 2} />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent/20 via-background to-foreground/5">
+                            <span className="text-xs font-semibold text-foreground/40 uppercase tracking-widest">{p.category}</span>
+                          </div>
+                        )}
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </Link>
 
