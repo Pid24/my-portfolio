@@ -87,7 +87,7 @@ export default function AboutContent() {
                       exit={{ opacity: 0, scale: 1.02 }}
                       transition={{ duration: 0.5, ease: "easeOut" }}
                     >
-                      <Image src={photos[photoIndex]} alt={`Foto ${PROFILE.name}`} fill priority={photoIndex === 0} sizes="(min-width: 768px) 340px, 280px" className="object-cover" style={{ objectPosition: "center 20%" }} />
+                      <Image src={photos[photoIndex]} alt={`Photo of ${PROFILE.name}`} fill priority={photoIndex === 0} sizes="(min-width: 768px) 340px, 280px" className="object-cover" style={{ objectPosition: "center 20%" }} />
                     </motion.div>
                   </AnimatePresence>
                 </div>
@@ -116,40 +116,40 @@ export default function AboutContent() {
 
             <div className="text-foreground/80 leading-relaxed">
               <p>
-                Saya <strong>Quality Assurance Engineer</strong> dengan latar belakang pengembangan web yang kuat. Transisi ke QA memberi saya perspektif unik — saya memahami cara kerja sistem dari dalam, sehingga lebih efektif dalam merancang test case yang tajam dan menemukan bug yang sering terlewat.
+                I&apos;m a <strong>Quality Assurance Engineer</strong> with a strong web development background. Transitioning to QA gives me a unique perspective — I understand how systems work from the inside, making me more effective at designing precise test cases and catching bugs that are often overlooked.
               </p>
             </div>
 
             <div className="mt-10 space-y-8">
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">Test Case Design & Execution</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">Test Case Design &amp; Execution</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Terampil merancang test case yang komprehensif menggunakan teknik <strong>Black-Box Testing</strong>, Equivalence Partitioning, dan Boundary Value Analysis. Pengujian mencakup functional, UI/UX, dan regression testing secara sistematis dan terdokumentasi.
+                  Skilled at crafting comprehensive test cases using <strong>Black-Box Testing</strong>, Equivalence Partitioning, and Boundary Value Analysis techniques. Testing covers functional, UI/UX, and regression scenarios in a systematic and well-documented manner.
                 </p>
               </div>
 
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">Bug Tracking & Reporting</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">Bug Tracking &amp; Reporting</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Berpengalaman mendokumentasikan bug secara terstruktur — mencakup langkah reproduksi, expected vs actual result, severity, prioritas, dan screenshot. Laporan yang jelas mempercepat siklus perbaikan oleh tim developer.
+                  Experienced in documenting bugs in a structured format — including reproduction steps, expected vs actual results, severity, priority, and screenshots. Clear, actionable reports help development teams resolve issues faster.
                 </p>
               </div>
 
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">API Testing & Automation</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">API Testing &amp; Automation</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Menggunakan <strong>Postman</strong> dengan test scripts berbasis JavaScript untuk memvalidasi REST API — status code assertions, response time threshold, JSON schema validation, dan negative testing. Collection siap dijalankan via Newman untuk integrasi CI pipeline.
+                  Using <strong>Postman</strong> with JavaScript test scripts to validate REST APIs — covering status code assertions, response time thresholds, JSON schema validation, and negative testing. Collections are Newman-ready for CI pipeline integration.
                 </p>
               </div>
 
               <div className="relative pl-5">
                 <div className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-foreground"></div>
-                <h3 className="text-sm font-bold text-foreground mb-2">SDLC & Logical Precision</h3>
+                <h3 className="text-sm font-bold text-foreground mb-2">SDLC &amp; Logical Precision</h3>
                 <p className="text-sm text-foreground/70 leading-relaxed">
-                  Memahami seluruh siklus pengembangan perangkat lunak (<strong>SDLC</strong>) dengan pendekatan analitis yang terstruktur. Latar belakang developer memberikan keunggulan dalam memahami root cause bug dan berkomunikasi efektif dengan tim engineering.
+                  Familiar with the full Software Development Life Cycle (<strong>SDLC</strong>) with a structured, analytical approach. A developer background gives me an edge in understanding root causes and communicating effectively with engineering teams.
                 </p>
               </div>
             </div>
