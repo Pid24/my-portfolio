@@ -68,7 +68,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         <motion.div variants={item} className="mb-6 flex items-center justify-between gap-4 flex-wrap">
           <Link href="/projects" className="group inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-foreground/5 transition-colors">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-            Semua Projects
+            All Projects
           </Link>
 
           {p.period && (
@@ -236,7 +236,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         <motion.div variants={item} className="mt-12 md:mt-16 flex justify-center">
           <Link href="/projects" className="group inline-flex items-center gap-2 rounded-2xl border px-5 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-            Kembali ke Projects
+            Back to Projects
           </Link>
         </motion.div>
       </motion.div>

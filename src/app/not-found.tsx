@@ -60,18 +60,18 @@ export default function NotFound() {
           />
         </div>
 
-        <p className="mt-4 text-base md:text-lg text-foreground/70">Halaman yang kamu cari tidak ditemukan.</p>
+        <p className="mt-4 text-base md:text-lg text-foreground/70">The page you&apos;re looking for doesn&apos;t exist.</p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/"
             className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm md:text-base font-medium shadow-sm border bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
-            aria-label="Kembali ke beranda"
+            aria-label="Back to homepage"
           >
-            Kembali ke Beranda
+            Back to Home
           </Link>
           <Link href="/projects" className="inline-flex items-center rounded-2xl px-5 py-3 text-sm md:text-base font-medium border hover:bg-foreground/5 transition-colors">
-            Lihat Projects
+            View Projects
           </Link>
         </div>
       </div>

@@ -117,9 +117,9 @@ export function HeroSection() {
               <a
                 href={PROFILE.links.contact}
                 className="group inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold shadow-sm border-2 border-foreground bg-accent text-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
-                aria-label="Hubungi saya"
+                aria-label="Contact me"
               >
-                Hubungi Saya
+                Contact Me
               </a>
             </motion.div>
 

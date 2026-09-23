@@ -61,7 +61,7 @@ export default function WhatsAppContact() {
           {/* Kanan: Teks & Kontak */}
           <motion.div variants={item} className="flex flex-col justify-center space-y-8 py-2 md:py-6">
             <div className="text-foreground/80 leading-relaxed text-base md:text-lg">
-              <p>Mari bangun sesuatu yang hebat bersama. Tertarik untuk mendiskusikan proyek, kolaborasi, atau sekadar menyapa? Jangan ragu untuk menghubungi saya.</p>
+              <p>Let&apos;s build something great together. Interested in discussing a project, collaboration, or just want to say hi? Don&apos;t hesitate to reach out.</p>
             </div>
 
             <div className="space-y-4 font-medium text-base">

@@ -62,7 +62,7 @@ export default function Footer({ year }: { year: number }) {
         <div className="flex flex-col items-center text-center">
           <div>
             <p className="text-lg font-serif tracking-tight text-foreground">Rofid Nasif Annafie</p>
-            <p className="mt-2 text-sm text-foreground/70">Building reliable digital products, from architecture to pixel-perfect interfaces.</p>
+            <p className="mt-2 text-sm text-foreground/70">Ensuring software quality through precision testing, clear bug reports, and reliable API automation.</p>
           </div>
         </div>
 

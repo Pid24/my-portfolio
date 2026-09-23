@@ -73,14 +73,14 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           )}
         </div>
 
-        <p className="mt-3 text-foreground/70 max-w-xl">Maaf, terjadi kendala saat memuat halaman ini. Kamu bisa coba memuat ulang atau kembali ke beranda.</p>
+        <p className="mt-3 text-foreground/70 max-w-xl">An error occurred while loading this page. You can try reloading or go back to the homepage.</p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <button onClick={reset} className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm md:text-base font-medium shadow-sm border bg-primary text-primary-foreground hover:shadow-md hover:translate-y-[-1px] transition-all">
-            Coba lagi
+            Try again
           </button>
           <Link href="/" className="inline-flex items-center rounded-2xl px-5 py-3 text-sm md:text-base font-medium border hover:bg-foreground/5 transition-colors">
-            Kembali ke Beranda
+            Back to Home
           </Link>
         </div>
 

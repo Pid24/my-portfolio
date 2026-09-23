@@ -159,9 +159,9 @@ export default function AboutContent() {
                 href={PROFILE.cv}
                 download
                 className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold shadow-sm border-2 border-foreground bg-accent text-foreground hover:shadow-md hover:translate-y-[-1px] transition-all"
-                aria-label="Unduh CV (PDF)"
+                aria-label="Download Resume (PDF)"
               >
-                Unduh Resume
+                Download Resume
               </a>
             </div>
           </motion.div>
@@ -190,7 +190,7 @@ export default function AboutContent() {
 
             {/* Contribution Graph (Right) */}
             <div className="md:col-span-8 rounded-2xl border bg-background/60 p-6 flex flex-col items-center justify-center shadow-sm backdrop-blur overflow-hidden">
-              <span className="text-xs font-bold text-foreground/60 uppercase tracking-widest mb-6">Contributions (1 Tahun Terakhir)</span>
+              <span className="text-xs font-bold text-foreground/60 uppercase tracking-widest mb-6">Contributions (Last 12 Months)</span>
               <div className="w-full overflow-x-auto pb-4 flex justify-start md:justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://ghchart.rshah.org/8b5cf6/Pid24" alt="Pid24's Github chart" className="min-w-[650px] w-full max-w-[800px] opacity-90 dark:invert dark:hue-rotate-180 mix-blend-multiply dark:mix-blend-screen" />

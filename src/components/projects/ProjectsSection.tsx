@@ -102,28 +102,28 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
               <input
                 value={query}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-                placeholder="Cari proyek / stack…"
+                placeholder="Search project / stack…"
                 className="pl-10 pr-3 h-10 w-full md:w-72 rounded-xl border bg-background placeholder:text-foreground/50"
                 aria-label="Search projects"
               />
               <span className="sr-only">Search projects</span>
             </label>
 
-            <select value={sortMode} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSortMode(e.target.value as SortMode)} className="h-10 rounded-xl border bg-background px-3 text-sm" aria-label="Urutkan">
-              <option value="recent">Terbaru</option>
+            <select value={sortMode} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSortMode(e.target.value as SortMode)} className="h-10 rounded-xl border bg-background px-3 text-sm" aria-label="Sort">
+              <option value="recent">Newest</option>
               <option value="az">A-Z</option>
             </select>
         </div>
 
         {/* Count */}
         <div className="mb-4 text-sm text-foreground/60">
-          Menampilkan <strong>{shown.length}</strong> dari <strong>{filtered.length}</strong> proyek
-          {query ? " (hasil pencarian)" : ""}.
+          Showing <strong>{shown.length}</strong> of <strong>{filtered.length}</strong> projects
+          {query ? " (search results)" : ""}.
         </div>
 
         {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="rounded-2xl border p-8 text-center text-foreground/70">Tidak ada hasil. Coba hapus filter atau ubah kata kunci.</div>
+          <div className="rounded-2xl border p-8 text-center text-foreground/70">No results found. Try clearing filters or using a different keyword.</div>
         ) : (
           <>
             <motion.ul variants={container} initial="hidden" animate="show" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
@@ -216,7 +216,7 @@ export default function ProjectsSection({ initialProjects = PROJECTS, pageTitle 
             {visible < filtered.length && (
               <div className="mt-8 flex justify-center">
                 <button onClick={() => setVisible((v) => v + 6)} className="rounded-xl border px-4 py-2 text-sm hover:bg-foreground/5 transition">
-                  Lihat lebih banyak
+                  Load more
                 </button>
               </div>
             )}
