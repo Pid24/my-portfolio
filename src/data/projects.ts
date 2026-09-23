@@ -36,7 +36,7 @@ export const PROJECTS: Project[] = [
     title: "Zalora E-Commerce: Core Functional & UI/UX Testing",
     excerpt:
       "Comprehensive functional and UI/UX testing on the Zalora e-commerce platform, covering the Search, Filter, and Cart modules using a Black-Box Testing approach.",
-    cover: "",
+    cover: "/images/zalora.png",
     stack: ["Manual Testing", "Bug Reporting", "Test Cases", "GitHub"],
     category: "Manual QA",
     period: "2026",
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     title: "Reqres API Automation Testing",
     excerpt:
       "Automation testing for the public Reqres.in REST API, covering CRUD operation validation, status code assertions, response schema validation, and response time testing using Postman & JavaScript.",
-    cover: "",
+    cover: "/images/reqres.png",
     stack: ["Postman", "JavaScript", "JSON", "API Testing"],
     category: "API Automation",
     period: "2026",
